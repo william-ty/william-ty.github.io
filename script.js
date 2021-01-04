@@ -25,7 +25,7 @@ function getTargetTop(elem) {
   var offset = 60;
   return $(id).offset().top - offset;
 }
-
+/*Errors here *****************************************************/
 $(window).scroll(function (e) {
   isSelected($(window).scrollTop())
 });
@@ -60,6 +60,6 @@ $(window).on('load', function() {
       $(this).remove();
     });
     
-  }, 2500);
+  }, 500);
 });
 
