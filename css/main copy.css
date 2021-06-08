@@ -21,10 +21,9 @@ body {
     min-height: 100%;
     padding: 5rem 6rem;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: space-between;
 }
-
 
 /* TEMP */
 .temp-relative {
@@ -70,29 +69,25 @@ body {
 /* Main */
 
 .wrapper main {
-    min-width: 100%;
     display: flex;
-    /* min-height: 100%; */
     /* flex-wrap: wrap; */
 }
-
 .section-home {
     display: flex;
     flex-direction: column;
-    /* min-height: 100%; */
+    /* height: 100%; */
     width: 50%;
-    /* justify-content: space-between; */
 }
 .name-title {
     font-size: 10.5rem;
     font-weight: 800;
     margin: 0;
+    margin-top: 4rem;
     text-shadow: 0px 2px, 2px 0px, 10px 5px rgba(251, 184, 129, 0.096);
     letter-spacing: 0;
     text-transform: uppercase;
     color: #35303b;
     position: relative;
-    margin-top: 4rem;
 }
 .lastname-title {
     font-family: Permanent Marker;
@@ -135,18 +130,17 @@ body {
     animation-duration: 3s;
 }
 .job-title {
+    /* margin-top: 10rem; */
+    /* margin-left: 13rem; */
     color: #3a3a3a;
     position: relative;
     z-index: -1;
-    /* align-self: center; */
-    margin-top: 9rem;
-    margin-left: 14rem;    
 }
 .brush-interactive {
     width: 32rem;
     color: rgb(95, 25, 48);
     position: absolute;
-    top: -2rem;
+    top: -1.6rem;
     left: -6.3rem;
     z-index: -1;
     transform: rotate(-2.2deg);
@@ -155,21 +149,19 @@ body {
     width: 34rem;
     color: rgb(95, 25, 48);
     position: absolute;
-    top: 6.3rem;
+    top: 7rem;
     left: -6rem;
     z-index: -1;
     transform: rotate(1deg);
 }
 .job-title h3 {
-    font-size: 1.5em;
+    font-size: 1.7rem;
     font-weight: 400;
     margin-bottom: 3.5rem;
-    /* font-style: italic; */
-    text-transform: uppercase;
-    min-width: 100%;
+    font-style: italic;
 }
 .job-first {
-    /* font-style: italic; */
+    font-style: italic;
     font-weight: 300;
 }
 .separator {
@@ -178,12 +170,11 @@ body {
 
 /*SECTION PROJECTS*/
 .projects {
-    width: 50%;
+    width: 45%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin-top: 3rem;
-    /* background-color: green; */
+    justify-content: flex-end;
+    background-color: green;
 }
 
 /* CAROUSEL */
@@ -191,7 +182,6 @@ body {
     text-align: center;
     position: relative;
     display: flex;
-    width: 80%;
     /* margin-right: -3rem; */
     /* margin-bottom: -3rem; */
     /* clip-path: inset(50% 0 50% 0); */
@@ -203,9 +193,9 @@ body {
     /* margin-bottom: 4rem; */
     /* width: 48rem; */
     /* left: -2rem; */
-    bottom: -24%;
-    left: -1%;
-    z-index: 0;
+    /* top: -12rem; */
+    bottom: 0;
+    z-index: -1;
 }
 .scroller {
     overflow-x: hidden;
@@ -213,9 +203,8 @@ body {
     scroll-snap-type: x mandatory;
     box-shadow: 1px 1px 2px rgba(41, 41, 41, 0.233);
     border-radius: 4px;
-    width: 82%;
+    width: 80%;
     /* margin-bottom: 4.4rem; */
-    /* margin-right: -4rem; */
 }
   
 .item {
@@ -231,31 +220,30 @@ body {
 .tiles .btn {
     position: absolute;
     top: 50%;
-    margin-top: 1.8em;
-    height: 2rem;
-    width: 2rem;
+    margin-top: 20px;
+    height: 30px;
+    width: 30px;
     border-radius: 15px;
-    background-color: rgb(172, 172, 172);
+    background-color: rgba(95, 106, 117, 0.3);
     z-index: 1;
     line-height: 30px;
     text-align: center;
-    color: rgb(8, 8, 8);
+    color: white;
     font-weight: bold;
     transition: all ease 0.3s;
 
 }
 .tiles .btn:hover{
-    background-color: #ffffff;
+    background-color: #e4d3f880;
     transform: scale(1.2);
     transition: all ease 0.3s;
     color: rgb(66, 66, 66);
 }
 .tiles .btn.next {
-    right: 5%;
+    right: 15px;
 }
 .tiles .btn.prev {
-    /* top: 4rem; */
-    right: 10.5%;
+    left: 15px;
 }
 @media screen and (max-width: 480px) {
     .item {
@@ -265,31 +253,6 @@ body {
         padding: 80px 30px 30px;
     }
 }
-
-.tv-help {
-    text-transform: uppercase;
-    position: absolute;
-    right: -18%;
-    bottom: 45%;
-    display: inline-flex;
-    font-size: 2rem;
-    color: rgb(230, 199, 255);
-    transform: rotate(-30deg);
-}
-.tv-help span {
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-    font-size: 1rem;
-}
-/* .tv-turnon {
-    position: absolute;
-    right: -3.5rem;
-    bottom: 10rem;
-    display: inline-flex;
-    font-size: 2rem;
-    color: rgb(230, 199, 255);
-    transform: rotate(40deg);
-} */
 
 /* Footer */
 .socials-wrapper {
@@ -311,7 +274,6 @@ body {
     font-size: 1.5rem;
     font-weight: 400;
     transition: all ease 0.4s;
-    /* font-style: italic; */
 }
 
 .socials a:hover {
@@ -325,7 +287,5 @@ body {
     bottom: 0;
     right: 0;
     padding: 1rem 4rem;
-    text-transform: uppercase; 
+    text-transform: uppercase;
 }
-
-/* TV TURNON */
