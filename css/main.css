@@ -1,0 +1,302 @@
+@import "cursor.css";
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+*, *:before, *:after { box-sizing: border-box;}
+/* * {cursor: none;} */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+}
+
+.wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* TEMP */
+.temp-relative {
+    position: absolute;
+    right: -2rem;
+    top: -2rem;
+}
+.temp {
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: 600;
+    top: 6rem;
+    left: -50%;
+    color:#6969696b
+}
+
+.wrapper main {
+    display: flex;
+}
+
+/* Frame-line */
+.black-frame {
+    border: #a4e0d50c solid 3rem;
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+    mix-blend-mode: difference;
+}
+.frame-line {
+    border: solid rgb(136, 136, 136) 2px;
+    height: 200rem;
+    width: 200rem;
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+    z-index: -1;
+    border-radius: 1px;
+    mix-blend-mode: difference;
+}
+
+.name-letter-background {
+    position: absolute;
+    left: 50%;
+    top: -30%;
+}
+.name-letter {
+    position: relative;
+    left: -50%;
+    font-size: 80rem;
+    color: #e2ab1510;
+    font-weight: 700;
+    z-index: -1;
+    mix-blend-mode: difference;
+    font-family: Kanit, sans-serif;
+    font-style: normal;
+}
+
+/* Main */
+.section-home {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 50%;
+}
+
+.name-title {
+    font-size: 10.5rem;
+    font-weight: 800;
+    margin: 0;
+    margin-top: 4rem;
+    text-shadow: 0px 2px, 2px 0px, 10px 5px rgba(251, 184, 129, 0.096);
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #35303b;
+    position: relative;
+}
+
+.lastname-title {
+    font-family: Permanent Marker;
+    font-style: italic;
+    font-size: 12rem;
+    position: absolute;
+    top: 5.5rem;
+    left: 3rem;
+    color: #e5ceff;
+    z-index: -1;
+    mix-blend-mode: difference;
+}
+
+@keyframes shake {
+    0% { transform: skewX(0deg) translate3d(1px, -2px, -1px);color: #e5ceff;}
+    2% { transform: skewX(2deg) translateY(0.4rem); color: rgb(136, 155, 147);}
+    4% { transform: skewX(-2deg) translateX(0.4rem); color: #e5ceff;}
+    5% { transform: skewX(2deg) translateY(-0.4rem); color: #5bafbe;}
+    6% { transform: skewX(-70deg) translateX(-0.6rem); color: #70706e59;}
+    7% { transform: skewX(-2deg) translateX(0.2rem); color: #e5ceff;}
+    8% { transform: skewX(0deg); }
+    10% { transform: skewX(0deg); }
+    30% { transform: skewX(0deg) translateX(0rem);}
+    89% { transform: skewX(0deg) translateX(0rem);}
+    90% { transform: skewX(0deg) translateX(-0.1rem) translateY(-0.1rem);}
+    91% { transform: skewX(0deg) translateX(0rem);}
+    100% { transform: skewX(0deg); }  
+}
+
+.lastname-title {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -ms-background-clip: text;
+    -ms-text-fill-color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(45deg,#7794ff,#44107A,#FF1361,#FFF800);
+    animation: .8s shake infinite alternate;
+    animation-duration: 3s;
+}
+.job-title {
+    margin-top: 10rem;
+    margin-left: 13rem;
+    color: #3a3a3a;
+    position: relative;
+    z-index: -1;
+}
+.brush-interactive {
+    width: 32rem;
+    color: rgb(95, 25, 48);
+    position: absolute;
+    top: -1.6rem;
+    left: -6.3rem;
+    z-index: -1;
+    transform: rotate(-2.2deg);
+}
+.brush-creative {
+    width: 34rem;
+    color: rgb(95, 25, 48);
+    position: absolute;
+    top: 7rem;
+    left: -6rem;
+    z-index: -1;
+    transform: rotate(1deg);
+}
+.job-title h3 {
+    font-size: 1.7rem;
+    font-weight: 400;
+    margin-bottom: 3.5rem;
+    font-style: italic;
+}
+.job-first {
+    font-style: italic;
+    font-weight: 300;
+}
+.separator {
+    font-weight: 300;
+}
+
+/*SECTION PROJECTS*/
+.projects {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* CAROUSEL */
+.tiles {
+    text-align: center;
+    position: relative;
+    display: flex;
+    /* margin-right: -3rem; */
+    /* margin-bottom: -3rem; */
+    /* clip-path: inset(50% 0 50% 0); */
+}
+/* TV */
+.tv {
+    position: absolute;
+    /* width: 50rem; */
+    /* margin-bottom: 4rem; */
+    /* width: 48rem; */
+    /* left: -2rem; */
+    /* top: -12rem; */
+    bottom: 0;
+    z-index: -1;
+}
+.scroller {
+    overflow-x: hidden;
+    display: flex;
+    scroll-snap-type: x mandatory;
+    box-shadow: 1px 1px 2px rgba(41, 41, 41, 0.233);
+    border-radius: 4px;
+    width: 80%;
+    /* margin-bottom: 4.4rem; */
+}
+  
+.item {
+    min-width: 100%;
+    scroll-snap-align: center;
+    background-color: transparent;
+}
+.item img {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.tiles .btn {
+    position: absolute;
+    top: 50%;
+    margin-top: 20px;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    background-color: rgba(95, 106, 117, 0.3);
+    z-index: 1;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    transition: all ease 0.3s;
+
+}
+.tiles .btn:hover{
+    background-color: #e4d3f880;
+    transform: scale(1.2);
+    transition: all ease 0.3s;
+    color: rgb(66, 66, 66);
+}
+.tiles .btn.next {
+    right: 15px;
+}
+.tiles .btn.prev {
+    left: 15px;
+}
+@media screen and (max-width: 480px) {
+    .item {
+        padding: 0 30px;
+    }
+    .card {
+        padding: 80px 30px 30px;
+    }
+}
+
+/* Footer */
+.socials-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 5rem;
+}
+.socials { 
+    display: flex;
+    flex-direction: column;
+}
+.socials a {
+    text-decoration: none;
+    color: #131313;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 400;
+    transition: all ease 0.4s;
+}
+
+.socials a:hover {
+    color: rgb(230, 199, 255);
+    transition: all ease 0.3s;
+}
+
+.rights {
+    font-size: 0.7rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 1rem 4rem;
+    text-transform: uppercase;
+}
