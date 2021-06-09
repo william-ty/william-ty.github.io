@@ -17,6 +17,7 @@ canvas {
 
 .link {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .link img {
