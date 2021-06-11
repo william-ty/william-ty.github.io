@@ -24,7 +24,9 @@ body {
     /* flex-direction: column; */
     justify-content: space-between;
 }
+@media screen and (max-width: 1px) {
 
+}
 
 /* TEMP */
 .temp-relative {
@@ -51,6 +53,7 @@ body {
     z-index: -1;
 }
 
+
 .name-letter-background {
     position: absolute;
     left: 50%;
@@ -69,7 +72,6 @@ body {
 }
 
 /* Main */
-
 .wrapper main {
     min-width: 100%;
     display: flex;
@@ -259,15 +261,6 @@ body {
     /* top: 4rem; */
     right: 10.5%;
 }
-@media screen and (max-width: 480px) {
-    .item {
-        padding: 0 30px;
-    }
-    .card {
-        padding: 80px 30px 30px;
-    }
-}
-
 .tv-help {
     text-transform: uppercase;
     position: absolute;

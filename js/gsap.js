@@ -68,11 +68,19 @@ const nameLetter = document.querySelector('.name-letter-background')
 
 
 /* Help Disappear */
-const projectsBtns = document.querySelectorAll(".btn").forEach(element => {
-    addEventListener("click", ()=> {
+// const projectsBtns = document.querySelectorAll(".btn").forEach(element => {
+//     addEventListener("click", ()=> {
+//         document.querySelector(".tv-help").style.display = "none"
+//     })   
+// });
+const projectsBtns = document.querySelectorAll(".btn")
+
+for (let index = 0; index < projectsBtns.length; index++) {
+    const element = projectsBtns[index];
+    element.addEventListener("click", ()=> {
         document.querySelector(".tv-help").style.display = "none"
     })   
-});
+};
 
 console.log(projectsBtns)
 // projectsBtns.forEach(element => {console.log(element)})
