@@ -258,8 +258,8 @@ body {
     font-weight: 300;
 }
 
-/*SECTION PROJECTS*/
-.projects {
+/*SECTION section-PROJECTS*/
+.section-projects {
     width: 55%;
     display: flex;
     flex-direction: column;
@@ -467,6 +467,12 @@ body {
     }
 }
 @media screen and (max-width: 1115px) {
+    .tiles {
+        margin-left: 2rem;
+    }
+    .wrapper {
+        padding: 5rem 4rem;
+    }
     .name-title {
         font-size: 7.3rem;
     }
@@ -519,16 +525,182 @@ body {
     .job-title h3{
         font-size: 1rem;
     }
-    /* .wrapper main {
-        flex-direction: column;
-    } */
-    /* .project {
-
-    } */
     .socials a {
         font-size: 1.2rem;
     }
     .wrapper::after {
         font-size: 60rem;
     }
+}
+@media screen and (max-width: 880px) {
+    .wrapper {
+        padding: 4rem;
+    }
+    .name-title {
+        font-size: 6.3rem;
+        margin-top: -1.5rem;
+    }
+    .lastname-title {
+        margin-top: -1rem;
+        font-size: 7rem;
+    }
+    .brush-creative {
+        width: 22rem;
+        margin-left: 2rem;
+        margin-top: 0.8rem;
+    }
+    .brush-interactive {
+        width: 24rem;
+        margin-left: 1.5rem;
+        top: 5rem;
+    }
+    .music-job {
+        top: 5.6rem;
+    }
+    .job-title {
+        margin-top: 5rem;
+        margin-left: 6rem;
+    }
+    .job-title h3{
+        font-size: 1rem;
+        z-index: 10;
+    }
+    .socials a {
+        font-size: 1.2rem;
+    }
+    .wrapper main {
+        flex-direction: column;
+    }
+    .section-home {
+        padding-bottom: 10rem;
+        width: 100%;
+    }
+    .section-projects {
+        width: 85%;
+        padding-bottom: 1rem;
+        /* display: flex; */
+        margin-right: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    .tiles {
+        margin: 0;
+    }
+    .wrapper::after {
+        font-size: 45rem;
+    }
+    .rights {
+        left: 0;
+        text-align: left;
+    }
+    .tv-help {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 675px) {
+    .black-frame {
+        border: 1.5rem solid #a4ec0d50;
+    }
+    .wrapper::after {
+        font-size: 100vw;
+    }
+    .section-projects {
+        width: 100%;
+        padding-bottom: 3rem;
+    }
+    .name-title {
+        font-size: 18vw;
+    }
+    .lastname-title {
+        font-size: 19vw;
+        left: 1rem;
+    }
+    .temp {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .job-title {
+        margin-left: 2rem;
+        align-self: left;
+        /* transform: translate(-50M); */
+    }
+    .socials-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    .socials {
+        flex-direction: row;
+    }
+    .socials a {
+        padding: 1rem;
+    }
+    .rights {
+        left: 0;
+        text-align: center;
+        padding-bottom: 1.2rem;
+        font-size: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .job-title {
+        margin-left: 0.5rem;
+        align-self: left;
+        /* transform: translate(-50M); */
+    }
+}
+@media screen and (max-width: 375px) {
+    .black-frame {
+        border: 1rem solid #a4ec0d50;
+    }
+    .wrapper {
+        padding: 2rem;
+    }
+    .temp {
+        font-size: 4vw;
+    }
+    .name-title {
+        font-size: 14vw;
+        margin: 0;
+    }
+    .lastname-title {
+        top: 3rem;
+        left: 1rem;
+        font-size: 16vw;
+    }
+    .job-title {
+        margin: 3rem 3rem;
+    }
+    .brush-creative {
+        width: 20rem;
+        margin-left: 2rem;
+        margin-top: 1.2rem;
+    }
+    .brush-interactive {
+        width: 21rem;
+        margin-left: 1.5rem;
+        top: 5rem;
+    }
+    .job-group h3 {
+        font-size: 4.2vw;
+        left: -1rem;
+    }
+    .section-home {
+        padding-bottom: 6rem;
+    }
+
+
+    .tv-help {
+        display: none;
+    }
+    .btn-tv {
+        width: 4vw;
+        height: 4vw;
+    }
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    
 }
