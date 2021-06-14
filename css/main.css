@@ -14,6 +14,7 @@ body {
     overflow: hidden;
     margin: 0;
     font-family: 'Kanit', sans-serif;
+    position: relative;
 }
 
 .wrapper {
@@ -21,26 +22,49 @@ body {
     min-height: 100%;
     padding: 5rem 6rem;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
-@media screen and (max-width: 1px) {
 
+.wrapper::after {
+    content: "W";
+    font-size: 80vw;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -56%);
+    font-size: 80rem;
+    color: #e2ab1510;
+    font-weight: 700;
+    z-index: -1;
+    mix-blend-mode: difference;
+    font-family: Kanit, sans-serif;
 }
+
 
 /* TEMP */
-.temp-relative {
+/* .temp-relative {
     position: absolute;
     right: -2rem;
     top: -2rem;
-}
-.temp {
-    position: relative;
+} */
+/* .temp {
+    position: absolute;
     font-size: 1.5rem;
     font-weight: 600;
     top: 6rem;
-    left: -50%;
+    right: 6rem;
     color:#6969696b
+} */
+.temp {
+    /* position: absolute; */
+    font-size: 1.5rem;
+    font-weight: 600;
+    /* top: 6rem; */
+    /* right: 6rem; */
+    color:#6969696b;
+    align-self: flex-end;
 }
 
 /* Background elements */
@@ -54,7 +78,24 @@ body {
 }
 
 
-.name-letter-background {
+/* .name-letter-background {
+    position: relative;
+    left: 50%;
+    top: -30%;
+} */
+/* .name-letter {
+    position: absolute;
+    left: -50%;
+    font-size: 80rem;
+    color: #e2ab1510;
+    font-weight: 700;
+    z-index: -1;
+    mix-blend-mode: difference;
+    font-family: Kanit, sans-serif;
+    font-style: normal;
+} */
+
+/* .name-letter-background {
     position: absolute;
     left: 50%;
     top: -30%;
@@ -69,14 +110,17 @@ body {
     mix-blend-mode: difference;
     font-family: Kanit, sans-serif;
     font-style: normal;
-}
+} */
 
 /* Main */
 .wrapper main {
     min-width: 100%;
+    /* min-height: 80%; */
     display: flex;
     /* min-height: 100%; */
     /* flex-wrap: wrap; */
+    /* height: 60%; */
+    flex: 4;
 }
 
 .section-home {
@@ -88,6 +132,7 @@ body {
 }
 .name-title {
     font-size: 10.5rem;
+    /* font-size: 8vw; */
     font-weight: 800;
     margin: 0;
     text-shadow: 0px 2px, 2px 0px, 10px 5px rgba(251, 184, 129, 0.096);
@@ -95,12 +140,13 @@ body {
     text-transform: uppercase;
     color: #35303b;
     position: relative;
-    margin-top: 4rem;
+    margin-top: 2.5rem;
 }
 .lastname-title {
     font-family: Permanent Marker;
     font-style: italic;
     font-size: 12rem;
+    /* font-size: 9vw; */
     position: absolute;
     top: 5.5rem;
     left: 3rem;
@@ -109,7 +155,14 @@ body {
     mix-blend-mode: difference;
     padding-right: 5rem;
 }
-
+@media screen and (max-width: 1550px) {
+    .name-title {
+        font-size: 10rem;
+    }
+    .lastname-title {
+        font-size: 11rem;
+    }
+}
 @keyframes shake {
     0% { transform: skewX(0deg) translate3d(1px, -2px, -1px);color: #e5ceff;}
     2% { transform: skewX(2deg) translateY(0.4rem); color: rgb(136, 155, 147);}
@@ -142,20 +195,35 @@ body {
     color: #3a3a3a;
     position: relative;
     z-index: -1;
-    /* align-self: center; */
-    margin-top: 9rem;
+    margin-top: 8rem;
     margin-left: 14rem;    
 }
-.brush-interactive {
+.job-group {
+    display: flex;
+    position: relative;
+}
+/* .brush-creative {
     width: 32rem;
     color: rgb(95, 25, 48);
-    position: absolute;
-    top: -2rem;
-    left: -6.3rem;
     z-index: -1;
     transform: rotate(-2.2deg);
 }
+.brush-interactive {
+    width: 34rem;
+    color: rgb(95, 25, 48);
+    z-index: -1;
+    transform: rotate(1deg);
+} */
 .brush-creative {
+    width: 32rem;
+    color: rgb(95, 25, 48);
+    position: absolute;
+    top: -1.8rem;
+    left: -6rem;
+    z-index: -1;
+    transform: rotate(-2.2deg);
+}
+.brush-interactive {
     width: 34rem;
     color: rgb(95, 25, 48);
     position: absolute;
@@ -166,11 +234,21 @@ body {
 }
 .job-title h3 {
     font-size: 1.5em;
-    font-weight: 400;
-    margin-bottom: 3.5rem;
-    /* font-style: italic; */
+    /* font-size: 1.2vw; */
     text-transform: uppercase;
-    min-width: 100%;
+    font-weight: 400;
+    /* margin-bottom: 3.5rem; */
+    /* font-style: italic; */
+    /* min-width: 100%; */
+    position: absolute;
+}
+.dev-job {
+    left: 0em;
+    top: 0.5rem;
+}
+.music-job {
+    left: 0em;
+    top: 7.2rem;
 }
 .job-first {
     /* font-style: italic; */
@@ -182,16 +260,17 @@ body {
 
 /*SECTION PROJECTS*/
 .projects {
-    width: 50%;
+    width: 55%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 3rem;
+    margin-top: 5rem;
     /* background-color: green; */
 }
 
 /* CAROUSEL */
 .tiles {
+    margin-left: 4rem;
     text-align: center;
     position: relative;
     display: flex;
@@ -208,11 +287,13 @@ body {
     /* width: 48rem; */
     /* left: -2rem; */
     bottom: -24%;
+    /* -moz- */
     left: -1%;
     z-index: 0;
 }
 .scroller {
     overflow-x: hidden;
+    overflow-y: hidden;
     display: flex;
     scroll-snap-type: x mandatory;
     box-shadow: 1px 1px 2px rgba(41, 41, 41, 0.233);
@@ -220,6 +301,8 @@ body {
     width: 82%;
     /* margin-bottom: 4.4rem; */
     /* margin-right: -4rem; */
+    /* min-height: 100%; */
+    /* min-width: 100%; */
 }
   
 .item {
@@ -232,49 +315,56 @@ body {
     height: 100%;
     z-index: 2;
 }
-.tiles .btn {
+.btn-tv {
     position: absolute;
-    top: 50%;
-    margin-top: 1.8em;
-    height: 2rem;
-    width: 2rem;
-    border-radius: 15px;
+    height: 1.6vw;
+    width: 1.6vw;
+    /* top: 50%; */
+    /* margin-top: 1.8em; */
+    border-radius: 25px;
     background-color: rgb(172, 172, 172);
     z-index: 1;
-    line-height: 30px;
-    text-align: center;
     color: rgb(8, 8, 8);
     font-weight: bold;
     transition: all ease 0.3s;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* line-height: 30px; */
+    /* text-align: center; */
 }
-.tiles .btn:hover{
+.btn-tv:hover {
     background-color: #ffffff;
     transform: scale(1.2);
     transition: all ease 0.3s;
     color: rgb(66, 66, 66);
 }
-.tiles .btn.next {
+.btn-tv.next {
     right: 5%;
+    top: 59%;
 }
-.tiles .btn.prev {
-    /* top: 4rem; */
-    right: 10.5%;
+.btn-tv.prev {
+    /* bottom: 0; */
+    right: 11%;
+    top: 59%;
+}
+.btn-tv i {
+    font-size: 1vw;
 }
 .tv-help {
     text-transform: uppercase;
     position: absolute;
-    right: -18%;
+    right: -22%;
     bottom: 45%;
     display: inline-flex;
-    font-size: 2rem;
+    font-size: 2vw;
     color: rgb(230, 199, 255);
     transform: rotate(-30deg);
 }
 .tv-help span {
     margin-top: 0.5rem;
     margin-left: 0.5rem;
-    font-size: 1rem;
+    font-size: 1vw;
 }
 /* .tv-turnon {
     position: absolute;
@@ -288,15 +378,16 @@ body {
 
 /* Footer */
 .socials-wrapper {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 5rem;
+    /* position: fixed; */
+    /* bottom: 0; */
+    /* right: 0; */
+    /* padding: 5rem; */
+    text-align: right;
 }
 .socials { 
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
 }
 .socials a {
@@ -324,3 +415,120 @@ body {
 }
 
 /* TV TURNON */
+/* Media Queries */
+
+@media screen and (max-width: 1550px) {
+    .name-title {
+        font-size: 8rem;
+    }
+    .lastname-title {
+        font-size: 9rem;
+        margin-top: -1rem;
+    }
+    .brush-creative {
+        width: 30rem;
+    }
+    .brush-interactive {
+        width: 32rem;
+    }
+    .job-title {
+        margin-top: 6rem;
+        margin-left: 11rem;
+    }
+    .job-title h3{
+        font-size: 1.3rem;
+    }
+    .wrapper::after {
+        font-size: 68rem;
+    }
+}
+@media screen and (max-width: 1300px) {
+    .name-title {
+        font-size: 7.3rem;
+    }
+    .lastname-title {
+        margin-top: -1rem;
+        font-size: 8rem;
+    }
+    .brush-creative {
+        width: 26rem;
+    }
+    .brush-interactive {
+        width: 28rem;
+    }
+    .job-title {
+        margin-left: 10rem;
+    }
+    .job-title h3{
+        font-size: 1.1rem;
+    }
+    .wrapper::after {
+        font-size: 66rem;
+    }
+}
+@media screen and (max-width: 1115px) {
+    .name-title {
+        font-size: 7.3rem;
+    }
+    .lastname-title {
+        margin-top: -1rem;
+        font-size: 8rem;
+    }
+    /* .brush-creative {
+        width: 24rem;
+    }
+    .brush-interactive {
+        width: 26rem;
+    } */
+    .job-title {
+        /* margin-top: 8rem; */
+        margin-left: 8rem;
+    }
+    .job-title h3{
+        font-size: 1.1rem;
+    }
+    .wrapper::after {
+        font-size: 62rem;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .name-title {
+        font-size: 6.3rem;
+    }
+    .lastname-title {
+        margin-top: -1rem;
+        font-size: 7rem;
+    }
+    .brush-creative {
+        width: 22rem;
+        margin-left: 2rem;
+        margin-top: 0.8rem;
+    }
+    .brush-interactive {
+        width: 24rem;
+        margin-left: 1.5rem;
+        top: 5rem;
+    }
+    .music-job {
+        top: 5.6rem;
+    }
+    .job-title {
+        margin-top: 5rem;
+        margin-left: 6rem;
+    }
+    .job-title h3{
+        font-size: 1rem;
+    }
+    /* .wrapper main {
+        flex-direction: column;
+    } */
+    /* .project {
+
+    } */
+    .socials a {
+        font-size: 1.2rem;
+    }
+    .wrapper::after {
+        font-size: 60rem;
+    }
+}

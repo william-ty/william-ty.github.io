@@ -25,9 +25,9 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    <div class="temp-relative">
-      <div class="temp">TEMPORARY WEBSITE</div>
-    </div>
+    <!-- <div class="temp-relative"> -->
+      <!-- <div class="temp">TEMPORARY WEBSITE</div> -->
+    <!-- </div> -->
     <canvas id="c"></canvas>
     <div class="tools">
       <div id="curr" class="custom-cursor" data-custom-cursor>
@@ -35,10 +35,12 @@
       </div>
     </div>
     <div class="black-frame"></div>
-    <div class="name-letter-background">
-      <span class="name-letter">W</span>
-    </div>
+    <!-- <div class="name-letter-background"> -->
+      <!-- <span class="name-letter">W</span> -->
+    <!-- </div> -->
     <div class="wrapper">
+      <!-- <span class="name-letter">W</span> -->
+      <div class="temp">TEMPORARY WEBSITE</div>
       <main>
         <section class="section-home">
           <div class="grid">
@@ -49,23 +51,29 @@
                 rel="noopener"
                 draggable="false"
                 class="link grid"
-                style="padding: 0rem"
+                
               >
                 <h1 class="name-title h1 link-effect">William<br /><span class="lastname-title">Trahay</span></h1>
                 <img class="content__img" src="assets/me.jpg" alt="me" />
               </a>
           </div>
           <div class="job-title">
-            <img class="brush-creative" src="assets/brush-one.svg" alt="brush stroke">
-            <img class="brush-interactive" src="assets/brush-two.svg" alt="brush stroke">
-            <h3><span class="job-first">Interactive</span><br/>Web developer<span class="separator">/</span>Designer</h3>
-            <h3><span class="job-first">Creative</span><br/>Music Composer<span class="separator">/</span>Producer</h3>
+            <div class="job-group">
+              <img class="brush-creative" src="assets/brush-two.svg" alt="brush stroke">
+              <h3 class="dev-job"><span class="job-first">Interactive</span><br/>Web developer<span class="separator">/</span>Designer</h3>
+            </div>
+            <div class="job-group">
+              <img class="brush-interactive" src="assets/brush-one.svg" alt="brush stroke">
+              <h3 class="music-job"><span class="job-first">Creative</span><br/>Music Composer<span class="separator">/</span>Producer</h3>
+            </div>
           </div>
         </section>
         <section class="projects">
           <div class="tiles tiles2">
             <div class="scroller">
               <img class="tv" src="assets/tv-clean.svg" alt="tv set">
+              <span class="btn-tv prev"><i class="fas fa-chevron-left"></i></span>
+              <span class="btn-tv next"><i class="fas fa-chevron-right"></i></span>
               <div class="item">
                 <img src="assets/sportplus.png" alt="">
               </div>
@@ -75,10 +83,8 @@
               <div class="item item-aligned">
                 <img src="assets/streetdaddy.png" alt="">
               </div>
+              <div class="tv-help"><i class="fas fa-long-arrow-alt-left"></i><span>Projects</span></div>
             </div>
-            <span class="btn prev"><i class="fas fa-chevron-left"></i></span>
-            <span class="btn next"><i class="fas fa-chevron-right"></i></span>
-            <div class="tv-help"><i class="fas fa-long-arrow-alt-left"></i><span>Projects</span></div>
           </div>
         </section>
       </main>

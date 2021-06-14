@@ -1,7 +1,12 @@
 const tl = gsap.timeline()
 const projectsCarousel = document.querySelector('.scroller')
+var wrapperAfter = CSSRulePlugin.getRule(".wrapper::after"); //get the rule
 
-gsap.from('.name-letter', {delay: 0, opacity: 0, duration: 2, ease: 'CredentialsContainer.easeOut'})
+TweenLite.from(wrapperAfter, 3, {cssRule:{opacity: 0}});
+
+// gsap.from('.wrapper', {delay: 0, opacity: 0, duration: 2, ease: 'CredentialsContainer.easeOut'})
+// gsap.from(wrapperAfter, 1, {delay: 0, opacity: 0, duration: 2})
+// gsap.from('wrapperAfter', {delay: 0, opacity: 0, duration: 2})
 
 gsap.from('.name-title', {delay: 1, opacity: 0, duration: 1})
 gsap.from('.lastname-title', {delay: 1.5, opacity: 0, duration: 1})
@@ -41,7 +46,7 @@ tl.to(".tv-help", 1.0, { y: 10, x: -10, repeat:-1, yoyo:true });
 // gsap.to('.tiles', {delay: 2.5, duration: 2, opacity: 0, y: '-50rem', ease:Bounce.easeOut, })
 
 /* ANIMATION OF LETTER */
-const nameLetter = document.querySelector('.name-letter-background')
+// const nameLetter = document.querySelector('.name-letter-background')
 
 // // Mouse
 // document.addEventListener('mousemove', animateNameLetter)
@@ -73,7 +78,7 @@ const nameLetter = document.querySelector('.name-letter-background')
 //         document.querySelector(".tv-help").style.display = "none"
 //     })   
 // });
-const projectsBtns = document.querySelectorAll(".btn")
+const projectsBtns = document.querySelectorAll(".btn-tv")
 
 for (let index = 0; index < projectsBtns.length; index++) {
     const element = projectsBtns[index];

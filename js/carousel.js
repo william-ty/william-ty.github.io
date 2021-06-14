@@ -1,7 +1,7 @@
 const tiles = document.querySelector('.tiles');
 const scroller = tiles.querySelector('.scroller');
-const nextBtn = tiles.querySelector('.btn.next');
-const prevBtn = tiles.querySelector('.btn.prev');
+const nextBtn = tiles.querySelector('.btn-tv.next');
+const prevBtn = tiles.querySelector('.btn-tv.prev');
 const itemWidth = tiles.querySelector('.item').clientWidth;
 
 nextBtn.addEventListener('click', scrollToNextItem);
