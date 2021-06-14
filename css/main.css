@@ -600,7 +600,7 @@ body {
 
 @media screen and (max-width: 675px) {
     .black-frame {
-        border: 1.5rem solid #a4ec0d50;
+        border: 1rem solid #a4ec0d50;
     }
     .wrapper::after {
         font-size: 100vw;
@@ -633,7 +633,7 @@ body {
         flex-direction: row;
     }
     .socials a {
-        padding: 1rem;
+        padding: 0.5rem;
     }
     .rights {
         left: 0;
@@ -643,14 +643,22 @@ body {
     }
 }
 
+@media screen and (max-width: 520px) {
+    .grid {
+        margin-left: -1rem;
+    }
+}
 @media screen and (max-width: 420px) {
     .job-title {
-        margin-left: 0.5rem;
+        margin-left: 1rem;
         align-self: left;
         /* transform: translate(-50M); */
     }
 }
 @media screen and (max-width: 375px) {
+    .grid {
+        margin-left: 0rem;
+    }
     .black-frame {
         border: 1rem solid #a4ec0d50;
     }
@@ -670,33 +678,54 @@ body {
         font-size: 16vw;
     }
     .job-title {
-        margin: 3rem 3rem;
+        margin: 3rem 0rem;
+        margin-left: 3rem;
     }
     .brush-creative {
-        width: 20rem;
+        width: 18rem;
         margin-left: 2rem;
-        margin-top: 1.2rem;
+        margin-top: 1.6rem;
     }
     .brush-interactive {
-        width: 21rem;
+        width: 19rem;
         margin-left: 1.5rem;
         top: 5rem;
     }
+    .dev-job {
+        margin-top: 1.5rem;
+    }
     .job-group h3 {
-        font-size: 4.2vw;
+        font-size: 4vw;
         left: -1rem;
     }
     .section-home {
         padding-bottom: 6rem;
     }
-
-
     .tv-help {
         display: none;
     }
     .btn-tv {
         width: 4vw;
         height: 4vw;
+    }
+}
+
+@media screen and (max-width: 315px) {
+    .brush-creative {
+        width: 15rem;
+        margin-left: 2.4rem;
+        margin-top: 2rem;
+    }
+    .brush-interactive {
+        width: 16rem;
+        margin-left: 2.2rem;
+        top: 5rem;
+    }
+}
+
+@media screen and (max-width: 315px) {
+    .job-title {
+        margin-left: 2rem;
     }
 }
 
