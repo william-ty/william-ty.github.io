@@ -8,8 +8,11 @@ import {
   projectViewTitle,
   coverTitleAnim,
 } from './gsap/gsap_main.js';
-import portfolioData from './projects.json';
 import { initVisualizer, loadProject, closePreview } from './three-visualizer.js';
+
+const portfolioRes = await fetch(new URL('./projects.json', import.meta.url));
+if (!portfolioRes.ok) throw new Error(`Failed to load projects.json (${portfolioRes.status})`);
+const portfolioData = await portfolioRes.json();
 
 const cursorEl = document.querySelector('[data-custom-cursor]');
 

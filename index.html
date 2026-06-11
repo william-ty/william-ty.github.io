@@ -19,7 +19,16 @@
     referrerpolicy="no-referrer"
   />
 
-  <script type="module" src="/js/app.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://esm.sh/three@0.184.0",
+        "three/addons/": "https://esm.sh/three@0.184.0/examples/jsm/",
+        "gsap": "https://esm.sh/gsap@3.12.5"
+      }
+    }
+  </script>
+  <script type="module" src="js/app.js"></script>
 </head>
 
 <body>
