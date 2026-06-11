@@ -1,0 +1,219 @@
+{
+  "projects": [
+    {
+      "id": "p1",
+      "name": "Kosmolab",
+      "images": [
+        "assets/kosmolab_home.png",
+        "assets/kosmolab_profil.png",
+        "assets/kosmolab_artistes.png",
+        "assets/kosmolab_event.png"
+      ],
+      "website": "https://kosmolab.app",
+      "descriptions": [
+        "All-in-one platform connecting artists, organizers and talent scouts — portfolios, calls for projects, events, services, shop and blog.",
+        "TypeScript monorepo (Yarn Workspaces + Turborepo): Next.js 14 (web), Expo / React Native (mobile), NestJS (REST API + Swagger), shared logic in @kustom/core and Tamagui cross-platform design system.",
+        "PostgreSQL / PostGIS (Prisma), Redis cache, real-time messaging (Socket.IO), Stripe payments, React Email / Brevo, i18n FR/EN.",
+        "AWS end-to-end: EC2 (API), RDS, S3 optimized media (eu-west-3), Docker locally (PostGIS + Redis).",
+        "Key features: JWT auth, profiles & portfolios, geolocation, favorites, notifications, saved search, moderation and recommendations.",
+        "Tech: Next.js 14, Expo, React Native, NestJS, TypeScript, PostgreSQL, PostGIS, Prisma, Redis, Socket.IO, Stripe, AWS, Docker, Tamagui, Turborepo"
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "Qwote",
+      "images": [
+        "assets/qwote_home.png",
+        "assets/qwote_examplequote.png"
+      ],
+      "website": "https://qwoteapp.com",
+      "descriptions": [
+        "AI-assisted IT quote generation SaaS — designed and built end-to-end.",
+        "Turns a project description (and documents) into a detailed professional estimate: hour breakdown, phases, timeline and PDF export in under a minute.",
+        "Multi-step AI pipeline orchestrated server-side: context validation, phase extraction, global estimate, hour allocation, technical analysis, scheduling — with retry, timeouts and token tracking.",
+        "Integrated conversational assistants to refine a project, amend an existing quote or answer questions, with structured prompts and persisted conversation state.",
+        "Full product: social auth, Stripe credits & subscriptions, quote versioning, benchmarks, transactional emails, GDPR compliance, bilingual responsive UI.",
+        "Tech: React, TypeScript, Vite, Tailwind CSS, shadcn/ui, TanStack Query, Supabase (Auth, DB, Edge Functions Deno), OpenAI API, Stripe, i18next"
+      ]
+    },
+    {
+      "id": "p9",
+      "name": "Quantique Workshop",
+      "images": [
+        "assets/quantique_home.png",
+        "assets/quantique_prestation.png",
+        "assets/quantique_team.png"
+      ],
+      "descriptions": [
+        "Creative web experience built for a workshop.",
+        "Tech: JavaScript, Three.js, GSAP, HTML, CSS"
+      ]
+    },
+    {
+      "id": "p10",
+      "name": "Arpejio v1 & v2",
+      "images": [
+        "assets/arpejio_1.png",
+        "assets/arpejio_2.png"
+      ],
+      "website": "https://arpejio.com",
+      "descriptions": [
+        "Web agency website, designed and rebuilt across two iterations.",
+        "Tech: Next.js, React, TypeScript, SASS"
+      ]
+    },
+    {
+      "id": "p12",
+      "name": "Interax & Sport+",
+      "image": "assets/sportplus.png",
+      "descriptions": [
+        "RFID access control solution for a fitness group, developed independently in three parts:",
+        "- Fitness group e-commerce website",
+        "- Custom membership & access control management system (web back-office)",
+        "- Access control system (desktop software for terminals)",
+        "Tech: Symfony, PHP, JavaScript, Python, MySQL, SASS, Illustrator"
+      ]
+    },
+    {
+      "id": "p13",
+      "name": "Mapadora",
+      "descriptions": [
+        "Travel assistant project split into three developments: Web App, Mobile App & API.",
+        "Tech: Node.js, React, React Native, TypeScript, Material UI, GitLab CI/CD, Linux, PostgreSQL, Sequelize, Swagger, Figma, Nginx"
+      ]
+    },
+    {
+      "id": "p8",
+      "name": "L'Enfant Bleu — Lyon",
+      "website": "https://www.enfantbleu-lyon.fr/",
+      "descriptions": [
+        "Website and ongoing maintenance for L'Enfant Bleu (Lyon).",
+        "Tech: WordPress, PHP, custom theme"
+      ]
+    },
+    {
+      "id": "p14",
+      "name": "Novus",
+      "descriptions": [
+        "Custom PHP framework built from scratch for training purposes.",
+        "Tech: PHP, Docker, SASS, PostgreSQL"
+      ]
+    },
+    {
+      "id": "p3",
+      "name": "Mobile App 323",
+      "descriptions": [
+        "Confidential mobile application, taken from MVP to production.",
+        "Tech: React Native, TypeScript, Node.js, Firebase, Redux"
+      ]
+    },
+    {
+      "id": "p4",
+      "name": "Mobile App 242",
+      "descriptions": [
+        "Confidential mobile application with real-time communication features.",
+        "Tech: React Native, TypeScript, WebRTC, Stripe, Redis"
+      ]
+    },
+    {
+      "id": "p5",
+      "name": "Mobile App 151",
+      "descriptions": [
+        "Confidential mobile app: audit, refactoring and stabilization of an existing codebase, plus ongoing maintenance.",
+        "Tech: React Native, TypeScript, Node.js"
+      ]
+    },
+    {
+      "id": "p6",
+      "name": "Drupal & Front (SASS)",
+      "descriptions": [
+        "Confidential project: custom Drupal build with a fully hand-crafted SASS front-end.",
+        "Tech: Drupal, PHP, SASS, JavaScript"
+      ]
+    },
+    {
+      "id": "p11",
+      "name": "Desktop Software (C#)",
+      "descriptions": [
+        "Confidential desktop software built with C# WinForms.",
+        "Tech: C#, WinForms, .NET, SQL Server"
+      ]
+    },
+    {
+      "id": "p7",
+      "name": "Next.js Creative Site",
+      "hidden": true,
+      "descriptions": [
+        "Confidential client: creative front-end development with motion and interaction work.",
+        "Tech: Next.js, TypeScript, GSAP, Three.js"
+      ]
+    }
+  ],
+  "experiences": [
+    {
+      "id": "e1",
+      "name": "Arpejio",
+      "descriptions": [
+        "Freelance Full Stack Developer — 2021–2026 · Strasbourg & Chambéry, FR",
+        "Technical leadership and full stack delivery of 10+ web & mobile solutions (MVPs and production) for startups and SMEs.",
+        "Complex React Native MVPs: Bluetooth management, WebRTC communication, payments integration, Redis/Redux optimization.",
+        "Production Next.js sites (AI/Supabase app, Payload CMS) and WordPress, including AI integration.",
+        "Architected and implemented a full stack monorepo in production, owning infrastructure and deployment end-to-end.",
+        "Tech: Nest.js, React, React Native, Next.js, Strapi, Payload CMS, AWS, Firebase, Redis, Redux, Prisma"
+      ]
+    },
+    {
+      "id": "e2",
+      "name": "CEGI Santé",
+      "descriptions": [
+        "Full Stack Software Engineer — 2023–2024 · Annecy, FR",
+        "Design, development, maintenance and integration of new full stack features (.NET + TypeScript) within an Azure environment.",
+        "Tech: C#, ASP.NET, .NET Framework, .NET Core, Azure, SQL Server, jQuery"
+      ]
+    },
+    {
+      "id": "e3",
+      "name": "Diatem",
+      "descriptions": [
+        "Full Stack Software Developer — 2021–2022 · Strasbourg, FR",
+        "Project design and development, prototyping, dynamic interfaces, database creation and custom CMS adaptation with Symfony.",
+        "Built an RFID access control solution with a Python API.",
+        "Tech: PHP, Symfony, Python, SASS, JavaScript, MySQL"
+      ]
+    },
+    {
+      "id": "e8",
+      "name": "DJS Research",
+      "descriptions": [
+        "Market Research Consultant (B2B) — Manchester, UK",
+        "B2B market research consulting."
+      ]
+    },
+    {
+      "id": "e6",
+      "name": "Coutts & Co",
+      "descriptions": [
+        "Private Banking Officer & Project Coordinator — 2019 · Bristol, UK",
+        "Private banking operations and project coordination at Coutts & Co / Adam & Co."
+      ]
+    },
+    {
+      "id": "e7",
+      "name": "Zephus Ltd",
+      "descriptions": [
+        "Data Controller — 2014–2018 · Manchester, UK",
+        "Data control and management for a business information provider."
+      ]
+    },
+    {
+      "id": "e5",
+      "name": "Happy-Cash",
+      "descriptions": [
+        "IT Technician — Lyon, FR",
+        "Developed inventory management software for a wine cellar, integrated with a printer and barcode reader.",
+        "Built custom web applications using Drupal and WordPress.",
+        "Tech: C#, WinForms, .NET, Drupal, PHP, Symfony, SASS, WordPress"
+      ]
+    }
+  ]
+}

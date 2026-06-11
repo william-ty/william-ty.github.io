@@ -1,0 +1,928 @@
+.three-d-container {
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+/* ── 80s race mode ── */
+body.race-active .wrapper {
+  opacity: 0.08;
+  pointer-events: none;
+  transition: opacity 0.65s ease;
+}
+
+body.race-active #car-canvas {
+  filter: saturate(1.35) contrast(1.08);
+}
+
+/* ── Race intro fade overlay ── */
+#race-intro-fade {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: #000;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+
+#race-intro-fade.fade-out {
+  opacity: 0;
+}
+
+/* ── Race HUD ── */
+#race-hud {
+  position: fixed;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  pointer-events: none;
+  text-align: center;
+  font-family: Kanit, sans-serif;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#race-hud.is-active {
+  opacity: 1;
+}
+
+.race-hud-title {
+  font-size: 0.82rem;
+  letter-spacing: 3px;
+  color: #ff9ed8;
+  text-shadow: 0 0 12px rgba(255, 80, 180, 0.8);
+}
+
+.race-hud-dist {
+  margin-top: 0.25rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 2px 2px 0 #ff2fa0;
+}
+
+/* ── Pixelated hearts (pixel-art 9×7, 4px/pixel) ── */
+.race-hud-lives {
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+/*
+  Heart pixel grid (9 cols × 7 rows):
+  Row 0:  _ ■ ■ _ _ _ ■ ■ _
+  Row 1:  ■ ■ ■ ■ _ ■ ■ ■ ■
+  Row 2:  ■ ■ ■ ■ ■ ■ ■ ■ ■
+  Row 3:  _ ■ ■ ■ ■ ■ ■ ■ _
+  Row 4:  _ _ ■ ■ ■ ■ ■ _ _
+  Row 5:  _ _ _ ■ ■ ■ _ _ _
+  Row 6:  _ _ _ _ ■ _ _ _ _
+
+  Pixel size S=4px → 36×28px total
+  ::before is 4×4px transparent at (0,0); box-shadow draws all filled pixels.
+*/
+.race-heart {
+  display: inline-block;
+  width: 36px;
+  height: 28px;
+  position: relative;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(255, 34, 85, 0.95)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.75));
+}
+
+.race-heart::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 4px;
+  background: transparent;
+  box-shadow:
+    /* row 0 */
+    4px  0   0 0 #ff3366,
+    8px  0   0 0 #ff88aa,
+    24px 0   0 0 #ff88aa,
+    28px 0   0 0 #ff3366,
+    /* row 1 */
+    0    4px 0 0 #ff2255,  4px  4px 0 0 #ff2255,
+    8px  4px 0 0 #ff2255,  12px 4px 0 0 #ff2255,
+    20px 4px 0 0 #ff2255,  24px 4px 0 0 #ff2255,
+    28px 4px 0 0 #ff2255,  32px 4px 0 0 #ff2255,
+    /* row 2 */
+    0    8px 0 0 #ff2255,  4px  8px 0 0 #ff2255,
+    8px  8px 0 0 #ff2255,  12px 8px 0 0 #ff2255,
+    16px 8px 0 0 #ff2255,  20px 8px 0 0 #ff2255,
+    24px 8px 0 0 #ff2255,  28px 8px 0 0 #ff2255,
+    32px 8px 0 0 #ff2255,
+    /* row 3 */
+    4px  12px 0 0 #ff2255, 8px  12px 0 0 #ff2255,
+    12px 12px 0 0 #ff2255, 16px 12px 0 0 #ff2255,
+    20px 12px 0 0 #ff2255, 24px 12px 0 0 #ff2255,
+    28px 12px 0 0 #ff2255,
+    /* row 4 */
+    8px  16px 0 0 #ff2255, 12px 16px 0 0 #ff2255,
+    16px 16px 0 0 #ff2255, 20px 16px 0 0 #ff2255,
+    24px 16px 0 0 #ff2255,
+    /* row 5 */
+    12px 20px 0 0 #ff2255, 16px 20px 0 0 #ff2255,
+    20px 20px 0 0 #ff2255,
+    /* row 6 */
+    16px 24px 0 0 #ff2255;
+}
+
+.race-heart--dead {
+  filter: none;
+  opacity: 0.28;
+}
+
+.race-heart--dead::before {
+  box-shadow:
+    4px  0   0 0 #3a1a28, 8px  0   0 0 #3a1a28,
+    24px 0   0 0 #3a1a28, 28px 0   0 0 #3a1a28,
+    0    4px 0 0 #3a1a28,  4px  4px 0 0 #3a1a28,
+    8px  4px 0 0 #3a1a28,  12px 4px 0 0 #3a1a28,
+    20px 4px 0 0 #3a1a28,  24px 4px 0 0 #3a1a28,
+    28px 4px 0 0 #3a1a28,  32px 4px 0 0 #3a1a28,
+    0    8px 0 0 #3a1a28,  4px  8px 0 0 #3a1a28,
+    8px  8px 0 0 #3a1a28,  12px 8px 0 0 #3a1a28,
+    16px 8px 0 0 #3a1a28,  20px 8px 0 0 #3a1a28,
+    24px 8px 0 0 #3a1a28,  28px 8px 0 0 #3a1a28,
+    32px 8px 0 0 #3a1a28,
+    4px  12px 0 0 #3a1a28, 8px  12px 0 0 #3a1a28,
+    12px 12px 0 0 #3a1a28, 16px 12px 0 0 #3a1a28,
+    20px 12px 0 0 #3a1a28, 24px 12px 0 0 #3a1a28,
+    28px 12px 0 0 #3a1a28,
+    8px  16px 0 0 #3a1a28, 12px 16px 0 0 #3a1a28,
+    16px 16px 0 0 #3a1a28, 20px 16px 0 0 #3a1a28,
+    24px 16px 0 0 #3a1a28,
+    12px 20px 0 0 #3a1a28, 16px 20px 0 0 #3a1a28,
+    20px 20px 0 0 #3a1a28,
+    16px 24px 0 0 #3a1a28;
+}
+
+.race-hud-speed {
+  margin-top: 0.1rem;
+  font-size: 0.95rem;
+  letter-spacing: 3px;
+  color: #ffd450;
+  text-shadow: 0 0 10px rgba(255, 210, 80, 0.7);
+}
+
+.race-hud-hint {
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── Game Over screen ── */
+#race-gameover {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  background: rgba(6, 0, 18, 0.88);
+  backdrop-filter: blur(4px);
+  font-family: Kanit, sans-serif;
+  animation: _rgo-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes _rgo-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.rgo-title {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255, 80, 180, 0.9), 0 0 80px rgba(255, 80, 180, 0.4), 4px 4px 0 #c0006a;
+  animation: _rgo-flicker 3s ease infinite;
+}
+
+@keyframes _rgo-flicker {
+  0%, 94%, 96%, 100% { opacity: 1; }
+  95% { opacity: 0.6; }
+}
+
+.rgo-dist {
+  font-size: 1.35rem;
+  letter-spacing: 4px;
+  color: #00ffe8;
+  text-shadow: 0 0 14px rgba(0, 255, 232, 0.7);
+}
+
+.rgo-actions {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.rgo-key {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 3px;
+  color: #fff;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.rgo-sep {
+  opacity: 0.4;
+}
+
+#controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#canvasWrapper.expanded #controls {
+  display: block;
+}
+
+/* ── Controls panel — mirror of Messa9e, anchored top-right ── */
+.controls-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding-top: 2.6rem;
+  pointer-events: auto;
+}
+
+.controls-panel {
+  position: relative;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  background-color: rgba(37, 47, 49, 0.8);
+  padding: 1rem 1.1rem 1rem;
+  min-width: 24rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.controls-title {
+  position: absolute;
+  top: -2.6rem;
+  right: -2px;
+  width: 10rem;
+  height: 2.6rem;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-image: linear-gradient(white, white),
+    linear-gradient(rgba(37, 47, 49, 0.8), rgba(37, 47, 49, 0.8));
+  background-repeat: no-repeat;
+  background-size: 88% 2px, calc(100% - 0px) 100%;
+  background-position: center bottom;
+  background-color: rgba(37, 47, 49, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Kanit, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.controls-radius-left {
+  position: absolute;
+  height: 2rem;
+  top: -2rem;
+  right: calc(10rem - 4px);
+  left: 0;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  border-bottom-right-radius: 10px;
+  pointer-events: none;
+}
+
+.controls-radius-hide {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  left: calc(-2rem + 5px);
+  bottom: -5px;
+  border-right: 5px solid rgba(37, 47, 49, 0.8);
+  border-bottom: 5px solid rgba(37, 47, 49, 0.8);
+  border-bottom-right-radius: 13px;
+}
+
+.controls-border-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background-color: white;
+  pointer-events: none;
+}
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem 1.25rem;
+  align-items: start;
+}
+
+.controls-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.controls-col-buttons button {
+  width: 100%;
+  text-align: left;
+}
+
+#controls button {
+  padding: 0.45rem 0.75rem;
+  background: rgba(70, 170, 177, 0.15);
+  color: white;
+  border: 1px solid rgba(70, 170, 177, 0.4);
+  cursor: pointer;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease;
+}
+
+#controls button:hover {
+  background: rgba(70, 170, 177, 0.3);
+}
+
+#controls label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+/* Diamond range thumbs */
+.viz-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  margin: 0.35rem 0 0;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.14);
+  outline: none;
+  cursor: pointer;
+}
+
+.viz-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px;
+  height: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: linear-gradient(135deg, #a467b0, #51b9a4, #f5d089);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(81, 185, 164, 0.35);
+  cursor: grab;
+}
+
+.viz-range::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0;
+  background: linear-gradient(135deg, #a467b0, #51b9a4, #f5d089);
+  transform: rotate(45deg);
+  box-shadow: 0 0 6px rgba(81, 185, 164, 0.35);
+  cursor: grab;
+}
+
+.viz-range:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+/* Inline loader — same slot as thumbnail preview */
+.preview-loader {
+  position: absolute;
+  right: calc(100% + 1.25rem);
+  bottom: 0;
+  height: 100%;
+  width: min(18rem, 40vw);
+  max-width: min(360px, 48vw);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.preview-loader.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.35s ease;
+}
+
+.preview-loader-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.preview-loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #a372a9, #51b9a4, #f5d089, #47aab1);
+  transition: width 0.25s ease-out;
+}
+
+.preview-loader-label {
+  font-family: Kanit, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.14rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+}
+
+#canvasWrapper {
+  position: absolute;
+  right: calc(100% + 1.25rem);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  aspect-ratio: 1;
+  opacity: 0;
+  visibility: hidden;
+  flex-shrink: 0;
+  z-index: 2;
+  transition: width 0.45s ease, height 0.45s ease, opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+}
+
+#canvasWrapper.visible:not(.expanded) {
+  height: 100%;
+  width: min(18rem, 40vw);
+  max-width: min(360px, 48vw);
+  aspect-ratio: unset;
+  overflow: visible;
+  opacity: 1;
+  visibility: visible;
+  transition: width 0.45s ease, height 0.45s ease, opacity 0.5s ease-in-out;
+}
+
+#canvasWrapper.visible:not(.expanded) #previewStage {
+  width: 100%;
+  height: 100%;
+}
+
+#canvasWrapper.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  width: min(96vw, 1400px);
+  height: min(88vh, 820px);
+  max-width: none;
+  max-height: none;
+  aspect-ratio: unset;
+  overflow: visible;
+  opacity: 1;
+  visibility: visible;
+  z-index: 20000;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#canvasWrapper.expanded #previewStage {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+/* ── Preview stage layout ── */
+#previewStage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+#canvasWrapper.expanded #previewStage {
+  flex-direction: row;
+  gap: 0;
+  padding-top: 2.6rem;
+  box-sizing: border-box;
+}
+
+/* Recap — exact Messa9e pattern */
+.preview-recap-wrapper {
+  display: none;
+  flex: 0 0 38%;
+  max-width: 28rem;
+  min-height: 0;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+#canvasWrapper.expanded .preview-recap-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-recap-panel {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  background-color: rgba(37, 47, 49);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.preview-recap-wrapper .border-message-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#canvasWrapper.expanded .preview-recap-panel .message-title {
+  background-color: rgba(37, 47, 49, 0.8);
+  background-image: linear-gradient(white, white),
+    linear-gradient(rgba(37, 47, 49, 0.8), rgba(37, 47, 49, 0.8));
+}
+
+#canvasWrapper.expanded .preview-recap-panel .radius-right-hide {
+  border-left-color: rgba(37, 47, 49, 0.8);
+  border-bottom-color: rgba(37, 47, 49, 0.8);
+}
+
+.preview-recap-title {
+  margin: 0;
+  padding: 0.5rem 0 0.75rem;
+  font-family: Kanit, sans-serif;
+  font-size: 1.85rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  line-height: 1.15;
+  background: linear-gradient(to right, #a372a9 0%, #5bbaa3 32%, #f1cb8b 51%, #a76bae 77%, #47aab1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  flex-shrink: 0;
+}
+
+.preview-recap-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 0 0.5rem;
+}
+
+.preview-recap-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.preview-recap-content::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.preview-text-wrapper {
+  font-family: Kanit, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 300;
+  letter-spacing: 0.12rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 0.85rem;
+}
+
+.preview-text-wrapper .letter {
+  color: inherit;
+}
+
+.preview-slides {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: none;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(37, 47, 49, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.preview-slides.is-active {
+  display: flex;
+}
+
+.preview-slides[hidden] {
+  display: none !important;
+}
+
+.preview-slide-btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.preview-slide-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: white;
+}
+
+.preview-slide-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.preview-slide-counter {
+  font-family: Kanit, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08rem;
+  color: rgba(255, 255, 255, 0.9);
+  min-width: 3.2rem;
+  text-align: center;
+}
+
+.preview-website-link,
+.project-website-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.35rem;
+  margin-bottom: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: none;
+  border-radius: 999px;
+  font-family: Kanit, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  color: rgba(20, 24, 26, 0.92);
+  background: linear-gradient(to right, #a372a9 0%, #5bbaa3 32%, #f1cb8b 51%, #a76bae 77%, #47aab1 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+  transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.preview-website-link:hover,
+.project-website-link:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55);
+  color: rgba(12, 14, 16, 0.95);
+}
+
+/* Visual area — points canvas or parallax card */
+.preview-visual {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#canvasWrapper.expanded .preview-visual {
+  flex: 1 1 62%;
+  cursor: default;
+  background-color: rgb(37, 47, 49);
+  border-top: white 2px solid;
+  top: -2px;
+  border-bottom: white 2px solid;
+  height: 100.2%;
+  border-right: 2px solid white;
+}
+
+/* ── Original parallax — 16/9 image tile, no color backdrop ── */
+.parallax-card {
+  display: none;
+  position: absolute;
+  inset: 2% 3%;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+.parallax-card.is-active {
+  display: flex;
+}
+
+.parallax-card-perspective {
+  width: min(98%, 52rem);
+  aspect-ratio: 16 / 9;
+  height: auto;
+  max-height: 92%;
+  perspective: 650px;
+}
+
+.parallax-card-inner {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 2px;
+  box-shadow: none;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: visible;
+}
+
+.parallax-card-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translateZ(72px);
+  filter: drop-shadow(0 16px 48px rgba(0, 0, 0, 0.55));
+  pointer-events: none;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#canvasWrapper.expanded .parallax-card-perspective {
+  width: min(96%, 62rem);
+}
+
+#canvasWrapper.visible:not(.expanded) .parallax-card-perspective {
+  width: 100%;
+  max-height: 100%;
+}
+
+#controls.points-only-hidden .controls-col-sliders {
+  display: none;
+}
+
+#toggleViewMode[aria-pressed="true"] {
+  background: rgba(164, 103, 176, 0.35);
+  border-color: rgba(164, 103, 176, 0.65);
+}
+
+.overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(37, 47, 49, 0.8);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out;
+}
+
+#previewVisual canvas,
+#canvasWrapper canvas {
+  position: relative;
+  transform: scale(1);
+  transform-origin: center center;
+  border: 2px solid transparent;
+  transition: transform 0.5s ease-in-out, border 0.1s ease-in-out, opacity 0.3s ease;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#previewVisual canvas.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+#canvasWrapper.expanded #previewVisual canvas {
+  transform: scale(1);
+  cursor: default;
+}
+
+/* White hover border — inline thumbnail preview only */
+#canvasWrapper.visible:not(.expanded) .preview-visual {
+  cursor: pointer;
+}
+
+#canvasWrapper.visible:not(.expanded) .preview-visual:hover canvas {
+  border: 2px solid white;
+}
+
+#canvasWrapper.expanded #previewVisual canvas:hover {
+  border: 2px solid transparent;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — Visualizer / canvasWrapper sur mobile ≤ 767px
+   Le visualizer inline est masqué (pas de hover sur touch).
+   Le mode expanded reste disponible si JS l'ouvre.
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* On masque complètement le thumbnail inline flottant */
+  #canvasWrapper:not(.expanded) {
+    display: none !important;
+  }
+
+  /* On masque aussi le loader inline */
+  .preview-loader {
+    display: none !important;
+  }
+
+  /* Mode expanded : centré, plein écran mobile */
+  #canvasWrapper.expanded {
+    width: 96vw !important;
+    height: 80vh !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  /* En mode expanded, le recap texte passe en colonne sous la visuel */
+  #canvasWrapper.expanded #previewStage {
+    flex-direction: column !important;
+  }
+
+  .preview-recap-wrapper {
+    flex: 0 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 38% !important;
+  }
+
+  #canvasWrapper.expanded .preview-visual {
+    flex: 1 1 auto !important;
+    height: 62% !important;
+  }
+
+  /* Panel controls masqué sur mobile (pas de mouse) */
+  #controls {
+    display: none !important;
+  }
+}
