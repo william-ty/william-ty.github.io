@@ -669,13 +669,12 @@ body.race-active #car-canvas {
   transform: translateX(-50%);
   z-index: 12;
   display: none;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.35rem 0.65rem;
-  border-radius: 999px;
-  background: rgba(37, 47, 49, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(6px);
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  border-radius: 0;
+  background: rgba(37, 47, 49, 0.88);
+  border: 2px solid white;
 }
 
 .preview-slides.is-active {
@@ -688,12 +687,13 @@ body.race-active #car-canvas {
 
 .preview-slide-btn {
   appearance: none;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(70, 170, 177, 0.15);
   color: white;
-  width: 1.65rem;
-  height: 1.65rem;
-  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0;
   font-size: 1.15rem;
   line-height: 1;
   cursor: pointer;
@@ -701,12 +701,15 @@ body.race-active #car-canvas {
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+.preview-slide-btn:last-of-type {
+  border-right: none;
 }
 
 .preview-slide-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: white;
+  background: rgba(70, 170, 177, 0.3);
 }
 
 .preview-slide-btn:disabled {
@@ -720,7 +723,12 @@ body.race-active #car-canvas {
   letter-spacing: 0.08rem;
   color: rgba(255, 255, 255, 0.9);
   min-width: 3.2rem;
+  padding: 0 0.55rem;
   text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .preview-website-link,
