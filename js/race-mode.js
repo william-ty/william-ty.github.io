@@ -394,7 +394,7 @@ function _ensureHud() {
     <div class="race-hud-dist">0000 M</div>
     <div class="race-hud-speed">000 KM/H</div>
     <div class="race-hud-lives" aria-label="Lives"></div>
-    <div class="race-hud-hint">← → steer · smash palms · ESC quit</div>
+    <div class="race-hud-hint">← → steer · avoid palms · ESC quit</div>
   `;
   document.body.appendChild(_hud);
   return _hud;

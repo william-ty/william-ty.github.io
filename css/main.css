@@ -212,6 +212,8 @@ header {
 .logo .logo-svg {
     min-width: 6rem;
     height: 100%;
+    width: auto;
+    display: block;
 }
 
 /* #Layer_3 {
@@ -252,17 +254,17 @@ header {
     margin-left: 1.6rem;
 }
 
-.links a:hover i {
-    color: white
+.links a:hover .link-icon {
+    fill: white;
 }
 
-.linkedin a:hover i {
-    color: rgb(0, 162, 255);
+.linkedin a:hover .link-icon {
+    fill: rgb(0, 162, 255);
     transition: all 0.4s ease;
 }
 
-.mail a:hover i {
-    color: rgb(228, 160, 160);
+.mail a:hover .link-icon {
+    fill: rgb(228, 160, 160);
 }
 
 .links ul {
@@ -275,10 +277,12 @@ header {
 
 }
 
-.links i {
-    color: darkgray;
-    font-size: 1.6rem;
-    transition: all 0.4s ease;
+.links .link-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    display: block;
+    fill: darkgray;
+    transition: fill 0.4s ease;
 }
 
 .mail {}
@@ -342,6 +346,7 @@ header {
     max-height: min(280px, 38vh);
     position: relative;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .background-preview {
@@ -470,6 +475,14 @@ header {
 
 }
 
+.project-view-title.is-project h1 {
+    font-size: 2.1rem;
+}
+
+.project-view-title.is-project h1:first-child {
+    font-size: 4.2rem;
+}
+
 /* .project-view h1:not(:first-child) {
     font-size: 6rem;
     padding: 0;
@@ -528,10 +541,48 @@ header {
     flex-direction: column;
 }
 
+.skip-text-anim-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 3;
+    width: 1.35rem;
+    height: 9rem;
+    padding: 0;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgb(92, 92, 92);
+    color: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.skip-text-anim-btn:hover {
+    color: white;
+    background-color: rgb(105, 105, 105);
+}
+
+.skip-text-anim-btn[hidden] {
+    display: none;
+}
+
+.skip-text-anim-label {
+    display: block;
+    transform: rotate(90deg);
+    white-space: nowrap;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+}
+
 #message-content {
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+    padding-right: 1.35rem;
 }
 
 #message-content::-webkit-scrollbar {
@@ -608,6 +659,9 @@ header {
     height: 2rem;
     top: -2rem;
     left: calc(10rem - 4px);
+    body.simple-mode & {
+        left: calc(10rem + 12px);
+    }
     right: 0;
     border-left: 2px solid white;
     border-bottom: 2px solid white;
@@ -1027,7 +1081,7 @@ footer .william-ty {
     width: 1.55rem;
     align-self: stretch;
     flex-shrink: 0;
-    background-color: #0a1012;
+    background-color: #252F31;
     background-image:
         linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff),
         linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff);
@@ -1408,6 +1462,186 @@ footer .william-ty {
 
 
 /* ════════════════════════════════════════════════════════════
+   MODE SIMPLE — PDF portfolio viewer
+   ════════════════════════════════════════════════════════════ */
+
+.simple-portfolio {
+    display: none;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    padding: 0 2rem 2rem;
+}
+
+body.simple-mode .simple-portfolio {
+    display: flex;
+    flex-direction: column;
+}
+
+body.simple-mode .projects-container {
+    display: none !important;
+}
+
+body.simple-mode #car-canvas {
+    display: none !important;
+}
+
+body.simple-mode .modifiers {
+    display: none !important;
+}
+
+body.simple-mode .main-container {
+    justify-content: flex-start;
+}
+
+body.simple-mode .mode-toggle-btn {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+body.simple-mode #prelude-controls,
+body.simple-mode #car-hint {
+    display: none !important;
+}
+
+body.simple-mode header {
+    min-height: 45px !important;
+    height: 53px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.simple-portfolio-wrapper {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.simple-portfolio-panel {
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    background-color: rgb(92, 92, 92);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 1rem 1.25rem 1.25rem;
+}
+
+.simple-portfolio-title {
+    width: 11rem;
+}
+
+.simple-portfolio-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.85rem;
+    padding-top: 0.25rem;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+.pdf-toolbar-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: white;
+    font-family: inherit;
+    font-size: 1.1rem;
+    line-height: 1;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.pdf-toolbar-btn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: white;
+}
+
+.pdf-toolbar-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.pdf-page-label {
+    min-width: 4.5rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+.pdf-toolbar-sep {
+    opacity: 0.35;
+}
+
+.pdf-toolbar-link {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+    padding-bottom: 1px;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.pdf-toolbar-link:hover {
+    border-color: white;
+    opacity: 0.9;
+}
+
+.simple-portfolio-viewport {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+}
+
+.simple-portfolio-viewport::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.simple-portfolio-viewport::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+}
+
+#pdfCanvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.simple-portfolio-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.simple-portfolio-loading[hidden] {
+    display: none;
+}
+
+
+/* ════════════════════════════════════════════════════════════
    RESPONSIVE — Breakpoint 2 : ≤ 767px  (mobile)
    Layout colonne unique, bandeau horizontal fixe en haut,
    voiture et cursor désactivés.
@@ -1477,6 +1711,13 @@ footer .william-ty {
         padding-bottom: 0.5rem;
     }
 
+    body.simple-mode header {
+        min-height: 45px !important;
+        height: 53px !important;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
     .logo {
         height: 3rem;
     }
@@ -1487,8 +1728,16 @@ footer .william-ty {
         width: auto;
     }
 
-    .links i {
-        font-size: 1.35rem;
+    .links .link-icon {
+        width: 1.35rem;
+        height: 1.35rem;
+    }
+
+    /* Masque les icônes jusqu'à la fin de l'anim d'intro (barres + cover) */
+    .links ul {
+        opacity: 0;
+        animation: mobile-links-fade-in 0.5s ease forwards;
+        animation-delay: 2s;
     }
 
     .links li {
@@ -1540,29 +1789,81 @@ footer .william-ty {
         letter-spacing: 1px;
     }
 
+    .project-view-title.is-project h1:first-child {
+        font-size: 1.68rem;
+    }
+
+    .project-view-title.is-project h1 {
+        font-size: 0.945rem;
+    }
+
     /* Photo profil — plus petite sur mobile */
     .project-view-preview {
         width: min(7rem, 27vw);
     }
 
-    /* Message box */
+    /* Message box — hauteur fixe : le texte défile dedans sans redimensionner projects */
     .project-message-wrapper {
-        height: auto;
+        height: clamp(11rem, 32vh, 16rem);
+        min-height: clamp(11rem, 32vh, 16rem);
+        max-height: clamp(11rem, 32vh, 16rem);
+        flex-shrink: 0;
         /* Espace pour le petit onglet *Messa9e (position: absolute; top: -2.6rem) */
         padding-top: 3rem;
         margin-top: 0.75rem;
     }
 
     .project-message {
-        height: auto;
+        height: 100%;
+        min-height: 0;
         padding: 0.85rem 1rem;
     }
 
-    /* Sur mobile le parent est height:auto — flex:1 collapserait à 0.
-       On laisse #message-content grandir avec son contenu. */
     #message-content {
-        flex: none;
-        overflow-y: visible;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        margin-top: 1rem;
+        -webkit-overflow-scrolling: touch;
+        padding-right: 0.15rem;
+    }
+
+    /* Skip : discret, au-dessus de l’onglet, sans fond ni bordure */
+    .skip-text-anim-btn {
+        top: -1.55rem;
+        right: 5;
+        bottom: auto;
+        left: auto;
+        width: auto;
+        height: auto;
+        min-height: 0;
+        padding: 0.1rem 0;
+        border: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.36);
+        z-index: 4;
+        max-width: calc(100% - 10.5rem);
+    }
+
+    .skip-text-anim-btn:hover {
+        color: rgba(255, 255, 255, 0.68);
+        background: transparent;
+    }
+
+    .skip-text-anim-label {
+        transform: none;
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 10rem;
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.22);
+        text-underline-offset: 0.2em;
+    }
+
+    .skip-text-anim-btn:hover .skip-text-anim-label {
+        text-decoration-color: rgba(255, 255, 255, 0.45);
     }
 
     .text-wrapper {
@@ -1576,7 +1877,7 @@ footer .william-ty {
         max-width: 100%;
         width: 100%;
         height: auto;
-        /* La liste a besoin d'une hauteur pour être scrollable */
+        flex-shrink: 0;
     }
 
     .projects-top-zone {
@@ -1586,13 +1887,17 @@ footer .william-ty {
     .projects {
         padding-left: 0.5rem;
         padding-right: 0.25rem;
-        /* Hauteur fixe pour que la liste soit scrollable sur mobile */
+        /* Hauteur fixe : sans elle, .projects-lists (flex:1) reste à 0 car
+           les .projects-list enfants sont en position:absolute (hors flux). */
+        height: 55vh;
+        min-height: 16rem;
         max-height: 55vh;
         flex: none;
     }
 
     .projects-lists {
-        max-height: 45vh;
+        flex: 1 1 auto;
+        min-height: 0;
     }
 
     .projects-tab {
@@ -1610,8 +1915,31 @@ footer .william-ty {
         font-size: 0.8rem;
     }
 
+    .simple-portfolio {
+        padding: 0 0 1rem;
+    }
+
+    .simple-portfolio-panel {
+        padding: 0.85rem 0.75rem 0.75rem;
+    }
+
+    .simple-portfolio-toolbar {
+        gap: 0.45rem;
+        font-size: 0.85rem;
+    }
+
     /* ── Dividers ── */
     .divider {
         flex-shrink: 0;
+    }
+}
+
+@keyframes mobile-links-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

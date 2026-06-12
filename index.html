@@ -7,17 +7,11 @@
   <meta name="description" content="William Trahay — Développeur freelance, je conçois et construis des solutions digitales." />
   <title>William Trahay — IT Developer</title>
 
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/threepreview.css" />
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
 
   <script type="importmap">
     {
@@ -44,67 +38,34 @@
     <div class="main-container">
       <div class="mode letter-spaced-small" id="siteMode">
         <span class="mode-label">*Mode&nbsp;: <span class="mode-name" id="modeName">Home</span></span>
-        <button class="mode-toggle-btn" id="modeToggleBtn" type="button" title="Passer en mode portfolio simple">
+        <button class="mode-toggle-btn" id="modeToggleBtn" type="button" title="Passer en mode portfolio PDF">
           <span class="mode-toggle-arrow">→</span>
-          <span class="mode-toggle-label" id="modeToggleLabel">Simple&nbsp;?</span>
+          <span class="mode-toggle-label" id="modeToggleLabel">PDF&nbsp;?</span>
         </button>
         <div class="cover-mode"></div>
       </div>
       <div class="divider top-divider"></div>
       <header>
         <div class="logo">
-          <a href="#">
-            <svg class="logo-svg" id="Layer_3" data-name="Layer 3" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 248.11 148.65">
-              <defs>
-                <style>
-                  .cls-1 {
-                    stroke: #000;
-                    stroke-miterlimit: 10;
-                    stroke-width: 4px;
-                    fill: url(#FavoriteGradient);
-                  }
-                </style>
-                <linearGradient id="FavoriteGradient" x1="3" y1="74.5" x2="246" y2="74.5"
-                  gradientUnits="userSpaceOnUse">
-                  <stop offset="0.01" stop-color="#a09c91" />
-                  <stop offset="0.02" stop-color="#a2859f" />
-                  <stop offset="0.03" stop-color="#a374a8" />
-                  <stop offset="0.04" stop-color="#a46aae" />
-                  <stop offset="0.05" stop-color="#a467b0" />
-                  <stop offset="0.12" stop-color="#8a80ac" />
-                  <stop offset="0.26" stop-color="#51b9a4" />
-                  <stop offset="0.43" stop-color="#bfc892" />
-                  <stop offset="0.51" stop-color="#f5d089" />
-                  <stop offset="0.7" stop-color="#bc86a4" />
-                  <stop offset="0.79" stop-color="#a467b0" />
-                  <stop offset="0.82" stop-color="#9c6cb0" />
-                  <stop offset="0.87" stop-color="#887bb0" />
-                  <stop offset="0.93" stop-color="#6693b1" />
-                  <stop offset="0.99" stop-color="#3bb2b1" />
-                  <stop offset="1" stop-color="#6ca3c3" />
-                </linearGradient>
-              </defs>
-              <polygon class="cls-1" id="glide"
-                points="201 2.5 201 2.5 174 2.5 174 2.5 138 2.5 138 50.5 120 2.5 102 2.5 75 2.5 75 74.5 48 2.5 3 2.5 57 146.5 75 146.5 102 146.5 102 74.5 129 146.5 138 146.5 174 146.5 174 47.5 201 47.5 201 146.5 246 146.5 246 2.5 201 2.5" />
-            </svg>
+          <a href="#" id="logoHome" aria-label="Back to welcome">
+            <img src="assets/logo.svg" class="logo-svg" alt="" width="248" height="149" />
           </a>
         </div>
         <div class="links">
           <ul>
             <li class="mail">
-              <a href="mailto:william.trahay@gmail.com?subject=Mail from william-ty.github.io">
-                <i class="fa-solid fa-envelope"></i>
+              <a href="mailto:william.trahay@gmail.com?subject=Mail from william-ty.github.io" aria-label="Email">
+                <svg class="link-icon" viewBox="0 0 512 512" aria-hidden="true"><path d="M48 64C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm0 48l208 131.2L464 112H48zm0 288V176l208 131.2L464 176v224H48z"/></svg>
               </a>
             </li>
             <li class="github">
-              <a href="https://github.com/william-ty" target="_blank" rel="noopener">
-                <i class="fa-brands fa-github"></i>
+              <a href="https://github.com/william-ty" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg class="link-icon" viewBox="0 0 496 512" aria-hidden="true"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.2-14.3-112.2-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg>
               </a>
             </li>
             <li class="linkedin">
-              <a href="https://linkedin.com/in/william-trahay" target="_blank" rel="noopener">
-                <i class="fa-brands fa-linkedin"></i>
+              <a href="https://linkedin.com/in/william-trahay" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg class="link-icon" viewBox="0 0 448 512" aria-hidden="true"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.8V416z"/></svg>
               </a>
             </li>
           </ul>
@@ -186,7 +147,7 @@
                   </div>
                 </div>
               </div>
-              <div class="project-view-preview">
+              <div class="project-view-preview" id="profilePreview" role="button" tabindex="0" title="Back to welcome" aria-label="Back to welcome">
                 <div class="top-line"></div>
                 <div class="diag-line"></div>
                 <div class="diag-line2"></div>
@@ -204,13 +165,41 @@
                 <div>*Messa9e</div>
                 <div class="radius-right-hide"></div>
               </div>
+              <button
+                type="button"
+                id="skipTextAnimBtn"
+                class="skip-text-anim-btn"
+                hidden
+                aria-label="Skip Text Animation"
+              >
+                <span class="skip-text-anim-label">Skip Text Animation</span>
+              </button>
               <div id="message-content">
                 <p class="text-wrapper">
-                  My name is William Trahay. Freelance software developer, I
-                  design and build digital solutions.
+                  I'm William Trahay, full stack software engineer with 6 years of
+                  experience building web and mobile products. I've led delivery end
+                  to end for startups, SMEs, web agencies and large enterprise
+                  clients.
                 </p>
                 <p class="text-wrapper">
-                  Feel free to contact me for your project!
+                  My passion is solving problems and driving projects forward. I
+                  believe technology and tools serve the product, which is why I've
+                  worked across many environments and keep learning to pick the right
+                  stack for each challenge.
+                </p>
+                <p class="text-wrapper">
+                  Among others, I've worked with TypeScript, React, React Native,
+                  Node.js and Nest.js APIs, AWS deployment, headless CMSs, C# and .NET, Microsoft Azure, PHP and Symfony, Docker, and many
+                  libraries along the way.
+                </p>
+                <p class="text-wrapper">
+                  My skills range from project management and specs writing to
+                  scalable architecture design, code optimisation, DevOps and cloud
+                  practices, maintenance and support.
+                </p>
+                <p class="text-wrapper">
+                  Contact me to talk about your project. I'd be very happy to
+                  accompany you on your journey and provide a quote.
                 </p>
               </div>
             </div>
@@ -243,6 +232,43 @@
           </button>
         </div>
       </main>
+
+      <section class="simple-portfolio" id="simplePortfolio" hidden aria-label="Portfolio PDF">
+        <div class="simple-portfolio-wrapper">
+          <div class="simple-portfolio-panel">
+            <div class="radius-right"></div>
+            <div class="simple-portfolio-title message-title">
+              <div>*Portfolio</div>
+              <div class="radius-right-hide"></div>
+            </div>
+            <div class="simple-portfolio-toolbar">
+              <button id="pdfPrev" class="pdf-toolbar-btn" type="button" aria-label="Page précédente">‹</button>
+              <span id="pdfPageNum" class="pdf-page-label">1 / 1</span>
+              <button id="pdfNext" class="pdf-toolbar-btn" type="button" aria-label="Page suivante">›</button>
+              <span class="pdf-toolbar-sep" aria-hidden="true">|</span>
+              <button id="pdfZoomOut" class="pdf-toolbar-btn" type="button" aria-label="Zoom arrière">−</button>
+              <button id="pdfZoomIn" class="pdf-toolbar-btn" type="button" aria-label="Zoom avant">+</button>
+              <a
+                class="pdf-toolbar-link"
+                href="resume_william_trahay_light.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Ouvrir</a>
+              <a
+                class="pdf-toolbar-link"
+                href="resume_william_trahay_light.pdf"
+                download
+              >Télécharger</a>
+            </div>
+            <div class="simple-portfolio-viewport" id="pdfViewport">
+              <p class="simple-portfolio-loading" id="pdfLoading">Chargement du PDF…</p>
+              <canvas id="pdfCanvas"></canvas>
+            </div>
+          </div>
+          <div class="border-message-wrapper"></div>
+        </div>
+      </section>
+
       <div class="divider bottom-divider"></div>
       <footer>
         <div class="william-ty letter-spaced-small">

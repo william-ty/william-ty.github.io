@@ -15,6 +15,10 @@ let viewMode = 'points';
 let parallaxBound = false;
 let pendingRecapParagraphs = null;
 let loadProgressTimer = null;
+let loaderHideTimer = null;
+let loaderFinishTimer = null;
+let loaderShownAt = 0;
+let loadGeneration = 0;
 let slideImages = [];
 let slideIndex = 0;
 let currentProject = null;
@@ -22,6 +26,7 @@ let slidesBound = false;
 
 const FILL_MAX_Z = 120;
 const FILL_LAYER_STEP = 4;
+const MIN_LOADER_MS = 850;
 
 export function initVisualizer() {
   const canvasWrapper = document.getElementById('canvasWrapper');
@@ -64,16 +69,31 @@ function _setLoadProgress(percent) {
 function _showLoader() {
   const loader = loaderEl();
   if (!loader) return;
+
+  if (loaderHideTimer) {
+    clearTimeout(loaderHideTimer);
+    loaderHideTimer = null;
+  }
+
+  const alreadyActive = loader.classList.contains('is-active');
   loader.classList.add('is-active');
   loader.setAttribute('aria-hidden', 'false');
-  _setLoadProgress(4);
 
   if (loadProgressTimer) clearInterval(loadProgressTimer);
-  let fake = 4;
+
+  if (!alreadyActive) {
+    loaderShownAt = Date.now();
+    _setLoadProgress(6);
+  } else {
+    const current = parseFloat(loaderBar()?.style.width);
+    _setLoadProgress(Number.isFinite(current) ? Math.max(6, current) : 12);
+  }
+
+  let fake = alreadyActive ? 18 : 6;
   loadProgressTimer = setInterval(() => {
-    fake = Math.min(fake + Math.random() * 9, 88);
+    fake = Math.min(fake + Math.random() * 7, 86);
     _setLoadProgress(fake);
-  }, 120);
+  }, 140);
 }
 
 function _hideLoader() {
@@ -81,12 +101,85 @@ function _hideLoader() {
     clearInterval(loadProgressTimer);
     loadProgressTimer = null;
   }
+  if (loaderFinishTimer) {
+    clearTimeout(loaderFinishTimer);
+    loaderFinishTimer = null;
+  }
+  if (loaderHideTimer) {
+    clearTimeout(loaderHideTimer);
+    loaderHideTimer = null;
+  }
   _setLoadProgress(100);
   const loader = loaderEl();
   if (!loader) return;
   loader.classList.remove('is-active');
   loader.setAttribute('aria-hidden', 'true');
   _setLoadProgress(0);
+  loaderShownAt = 0;
+}
+
+function _clearSceneVisual() {
+  if (pointCloud && scene) {
+    scene.remove(pointCloud);
+    pointCloud.geometry?.dispose();
+    pointCloud.material?.dispose();
+    pointCloud = null;
+  }
+  if (imagePlane && scene) {
+    scene.remove(imagePlane);
+    imagePlane.geometry?.dispose();
+    imagePlane.material?.map?.dispose();
+    imagePlane.material?.dispose();
+    imagePlane = null;
+  }
+  imageData = null;
+  sourceCanvas = null;
+
+  const parallaxImg = document.getElementById('parallaxImage');
+  if (parallaxImg) {
+    parallaxImg.removeAttribute('src');
+    parallaxImg.alt = '';
+  }
+
+  renderer?.render(scene, camera);
+}
+
+function _beginPreviewLoad() {
+  _showLoader();
+  _clearSceneVisual();
+  const cw = document.getElementById('canvasWrapper');
+  cw?.classList.add('is-loading', 'visible');
+}
+
+function _finishPreviewLoad(generation) {
+  if (loaderFinishTimer) clearTimeout(loaderFinishTimer);
+  if (loaderHideTimer) clearTimeout(loaderHideTimer);
+
+  const run = () => {
+    if (generation !== loadGeneration) return;
+
+    if (loadProgressTimer) {
+      clearInterval(loadProgressTimer);
+      loadProgressTimer = null;
+    }
+    _setLoadProgress(100);
+
+    loaderHideTimer = setTimeout(() => {
+      if (generation !== loadGeneration) return;
+      document.getElementById('canvasWrapper')?.classList.remove('is-loading');
+      _hideLoader();
+    }, 400);
+  };
+
+  const elapsed = Date.now() - (loaderShownAt || Date.now());
+  const wait = Math.max(0, MIN_LOADER_MS - elapsed);
+  loaderFinishTimer = setTimeout(run, wait);
+}
+
+/** Affiche le loader immédiatement (appelé au clic, avant les animations texte). */
+export function startPreviewLoad() {
+  loadGeneration++;
+  _beginPreviewLoad();
 }
 
 function _createWebsiteLink(website) {
@@ -198,9 +291,10 @@ function _initSlides() {
 function _loadSlideImage(imagePath) {
   if (!imagePath || !scene) return;
 
+  const generation = ++loadGeneration;
+  _beginPreviewLoad();
   _updateSlideUI();
   _setViewMode('points');
-  _showLoader();
 
   const parallaxImg = document.getElementById('parallaxImage');
   if (parallaxImg) {
@@ -210,6 +304,8 @@ function _loadSlideImage(imagePath) {
 
   const img = new Image();
   img.onload = function () {
+    if (generation !== loadGeneration) return;
+
     _setLoadProgress(42);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -222,18 +318,20 @@ function _loadSlideImage(imagePath) {
     imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     _setLoadProgress(58);
     _updateReferenceImage();
-    _setLoadProgress(88);
-    _hideLoader();
+    _updatePointCloud();
+    _setLoadProgress(95);
+    _finishPreviewLoad(generation);
     _toggleCanvas(true);
 
     _whenPreviewReady(() => {
+      if (generation !== loadGeneration) return;
       _syncPreviewLayout();
-      _setLoadProgress(100);
     });
   };
 
   img.onerror = () => {
-    _hideLoader();
+    if (generation !== loadGeneration) return;
+    _finishPreviewLoad(generation);
   };
 
   img.src = imagePath;
@@ -248,12 +346,11 @@ export function loadProject(images, project) {
   slideIndex = 0;
 
   _prepareRecap(project);
-  _updateSlideUI();
-  _toggleCanvas(false);
   _loadSlideImage(paths[0]);
 }
 
 export function closePreview() {
+  loadGeneration++;
   slideImages = [];
   slideIndex = 0;
   currentProject = null;
@@ -582,7 +679,7 @@ function _toggleCanvas(show) {
     cw.classList.add('visible');
     _whenPreviewReady(_syncPreviewLayout);
   } else {
-    cw.classList.remove('visible', 'expanded');
+    cw.classList.remove('visible', 'expanded', 'is-loading');
     overlay?.classList.remove('active');
     _restoreCanvasFromBody();
     _hideLoader();

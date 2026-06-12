@@ -6,9 +6,70 @@ import {
   messageContent,
   revertMessageBox,
   projectViewTitle,
-  coverTitleAnim,
+  setWelcomeIntroCallback,
 } from './gsap/gsap_main.js';
-import { initVisualizer, loadProject, closePreview } from './three-visualizer.js';
+import { initVisualizer, loadProject, closePreview, startPreviewLoad } from './three-visualizer.js';
+import { showPdfViewer, hidePdfViewer } from './pdf-viewer.js';
+
+const WELCOME_TITLE = ['Welcome', 'to my portfolio'];
+
+const WELCOME_PARAGRAPHS = [...document.querySelectorAll('#message-content .text-wrapper')]
+  .map(el => el.textContent.trim());
+
+function restoreWelcomeTitle() {
+  if (!projectViewTitle) return;
+  projectViewTitle.classList.remove('is-project');
+  projectViewTitle.replaceChildren();
+  WELCOME_TITLE.forEach(line => {
+    const h1 = document.createElement('h1');
+    h1.appendChild(document.createTextNode(line));
+    const cover = document.createElement('div');
+    cover.className = 'cover-title';
+    h1.appendChild(cover);
+    projectViewTitle.appendChild(h1);
+  });
+  const trailingCover = document.createElement('div');
+  trailingCover.className = 'cover-title';
+  projectViewTitle.appendChild(trailingCover);
+
+  gsap.fromTo(
+    projectViewTitle.querySelectorAll('.cover-title'),
+    { width: '100%' },
+    { width: 0, duration: 1, ease: 'power1.out' },
+  );
+}
+
+function buildWelcomeParagraphs() {
+  return WELCOME_PARAGRAPHS.map(text => {
+    const p = document.createElement('p');
+    p.className = 'text-wrapper';
+    p.appendChild(document.createTextNode(text));
+    return p;
+  });
+}
+
+async function showWelcome({ initial = false } = {}) {
+  if (document.body.classList.contains('simple-mode')) return;
+
+  document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+  closePreview();
+
+  let paragraphs;
+  if (initial) {
+    paragraphs = Array.from(messageContent.querySelectorAll('.text-wrapper'));
+  } else {
+    paragraphs = await revertMessageBox().then(() => {
+      restoreWelcomeTitle();
+      messageContent.replaceChildren();
+      const ps = buildWelcomeParagraphs();
+      ps.forEach(p => messageContent.appendChild(p));
+      return ps;
+    });
+  }
+
+  textAnimation(paragraphs);
+  if (!initial) scrollMobileToProjectTop();
+}
 
 const portfolioRes = await fetch(new URL('./projects.json', import.meta.url));
 if (!portfolioRes.ok) throw new Error(`Failed to load projects.json (${portfolioRes.status})`);
@@ -70,10 +131,25 @@ const showItem = async button => {
   const item = itemsById.get(button.dataset.projectId);
   if (!item) return;
 
+  const images = getItemImages(item);
+  if (images?.length) startPreviewLoad();
+  else closePreview();
+
   const descs = await revertMessageBox().then(() => {
+    projectViewTitle.classList.add('is-project');
+
     const h1 = document.createElement('h1');
     h1.appendChild(document.createTextNode(item.name));
+    const titleCover = document.createElement('div');
+    titleCover.className = 'cover-title';
+    h1.appendChild(titleCover);
     projectViewTitle.appendChild(h1);
+
+    gsap.fromTo(
+      titleCover,
+      { width: '100%' },
+      { width: 0, duration: 1, ease: 'power1.out' },
+    );
 
     const paragraphs = item.descriptions.map(text => {
       const p = document.createElement('p');
@@ -91,15 +167,30 @@ const showItem = async button => {
   });
 
   textAnimation(descs);
+  scrollMobileToProjectTop();
 
-  const images = getItemImages(item);
   if (images?.length) loadProject(images, item);
-  else closePreview();
 };
 
 buttons.forEach(button => {
   button.addEventListener('click', () => showItem(button));
 });
+
+const profilePreview = document.getElementById('profilePreview');
+profilePreview?.addEventListener('click', () => showWelcome());
+profilePreview?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    showWelcome();
+  }
+});
+
+document.getElementById('logoHome')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  showWelcome();
+});
+
+setWelcomeIntroCallback(() => showWelcome({ initial: true }));
 
 // Tabs: slide Projects ↔ Experience
 const tabs = document.querySelectorAll('.projects-tab');
@@ -168,6 +259,20 @@ tabs.forEach(tab => {
 
 const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
 
+/** Mobile : remonte la vue sur le titre + message, et le texte au début. */
+function scrollMobileToProjectTop() {
+  if (!window.matchMedia('(max-width: 767px)').matches) return;
+  messageContent?.scrollTo({ top: 0, behavior: 'instant' });
+  const wrapper = document.querySelector('.wrapper');
+  const anchor = document.querySelector('.project-view-top');
+  if (!wrapper || !anchor) return;
+  const top = anchor.getBoundingClientRect().top
+    - wrapper.getBoundingClientRect().top
+    + wrapper.scrollTop
+    - 12;
+  wrapper.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
+
 // Sur mobile : ni voiture ni visualizer 3D (économie mémoire/batterie)
 // Le visualizer thumbnail est masqué par CSS sur mobile, pas besoin de le charger.
 if (!isMobileViewport) {
@@ -191,12 +296,14 @@ const blinkModeName = () => {
 
 const setSiteMode = (mode) => {
   const isSimple = mode === 'simple';
-  modeName.textContent = isSimple ? 'Simple' : 'Home';
-  modeToggleLabel.innerHTML = isSimple ? 'Home' : 'Simple&nbsp;?';
+  modeName.textContent = isSimple ? 'PDF' : 'Home';
+  modeToggleLabel.innerHTML = isSimple ? 'Home' : 'PDF&nbsp;?';
   modeToggleBtn.title = isSimple
     ? 'Revenir au mode Home'
     : 'Passer en mode portfolio simple';
   document.body.classList.toggle('simple-mode', isSimple);
+  if (isSimple) showPdfViewer();
+  else hidePdfViewer();
   blinkModeName();
 };
 

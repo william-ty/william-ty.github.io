@@ -12,11 +12,13 @@
       "website": "https://kosmolab.app",
       "descriptions": [
         "All-in-one platform connecting artists, organizers and talent scouts — portfolios, calls for projects, events, services, shop and blog.",
-        "TypeScript monorepo (Yarn Workspaces + Turborepo): Next.js 14 (web), Expo / React Native (mobile), NestJS (REST API + Swagger), shared logic in @kustom/core and Tamagui cross-platform design system.",
-        "PostgreSQL / PostGIS (Prisma), Redis cache, real-time messaging (Socket.IO), Stripe payments, React Email / Brevo, i18n FR/EN.",
-        "AWS end-to-end: EC2 (API), RDS, S3 optimized media (eu-west-3), Docker locally (PostGIS + Redis).",
-        "Key features: JWT auth, profiles & portfolios, geolocation, favorites, notifications, saved search, moderation and recommendations.",
-        "Tech: Next.js 14, Expo, React Native, NestJS, TypeScript, PostgreSQL, PostGIS, Prisma, Redis, Socket.IO, Stripe, AWS, Docker, Tamagui, Turborepo"
+        "Lead developer on the project: technical direction, architecture decisions and coordination of a small delivery team.",
+        "TypeScript monorepo (Yarn Workspaces + Turborepo): Next.js 14 (web), Expo / React Native (mobile), NestJS (REST API + Swagger), packages share logic and UI components (Tamagui) with a cross-platform design system.",
+        "PostgreSQL / PostGIS (Prisma), Redis cache, real-time messaging (Socket.IO), Stripe payments, React Email / Brevo, i18n languages support.",
+        "AWS end-to-end: EC2 (API), RDS, S3 optimized media, Docker locally (PostGIS + Redis). GitHub Actions for CI/CD across the monorepo. PM2 for process management in production.",
+        "Design workflow in Figma; UI/UX aligned with the cross-platform Tamagui design system.",
+        "Key features: JWT auth, profiles & portfolios, geolocation, favorites, notifications, multiple extended complex search, saved searches, moderation and recommendations.",
+        "Tech: Next.js 14, Expo, React Native, NestJS, TypeScript, PostgreSQL, PostGIS, Prisma, Redis, Socket.IO, Stripe, AWS, Docker, PM2, Figma, Tamagui, Turborepo, GitHub Actions"
       ]
     },
     {
@@ -31,7 +33,8 @@
         "AI-assisted IT quote generation SaaS — designed and built end-to-end.",
         "Turns a project description (and documents) into a detailed professional estimate: hour breakdown, phases, timeline and PDF export in under a minute.",
         "Multi-step AI pipeline orchestrated server-side: context validation, phase extraction, global estimate, hour allocation, technical analysis, scheduling — with retry, timeouts and token tracking.",
-        "Integrated conversational assistants to refine a project, amend an existing quote or answer questions, with structured prompts and persisted conversation state.",
+        "AI agent assistant to optionally refine a quote, amend an existing estimate or guide the user through the whole quoting process, with structured prompts and persisted conversation state.",
+        "Export quotes as PDF files ready to share with clients.",
         "Full product: social auth, Stripe credits & subscriptions, quote versioning, benchmarks, transactional emails, GDPR compliance, bilingual responsive UI.",
         "Tech: React, TypeScript, Vite, Tailwind CSS, shadcn/ui, TanStack Query, Supabase (Auth, DB, Edge Functions Deno), OpenAI API, Stripe, i18next"
       ]
@@ -44,9 +47,13 @@
         "assets/quantique_prestation.png",
         "assets/quantique_team.png"
       ],
+      "website": "https://quantiqueworkshop.com",
       "descriptions": [
-        "Creative web experience built for a workshop.",
-        "Tech: JavaScript, Three.js, GSAP, HTML, CSS"
+        "Immersive marketing website for Quantique Workshop — specialists in bespoke set design and custom decor for content creators, events, film and private clients (Villeurbanne, near Lyon).",
+        "Showcases their craft: immersive sets, 3D design, props, rental catalogue and made-to-measure creations — from first sketch to final installation.",
+        "Creative front-end experience with rich motion, scroll-driven storytelling and a polished brand presence.",
+        "Deployed with Coolify on self-hosted infrastructure.",
+        "Tech: Next.js, TypeScript, GSAP, Tailwind CSS, HTML, CSS"
       ]
     },
     {
@@ -58,8 +65,10 @@
       ],
       "website": "https://arpejio.com",
       "descriptions": [
-        "Web agency website, designed and rebuilt across two iterations.",
-        "Tech: Next.js, React, TypeScript, SASS"
+        "Web agency website for Arpejio — designed and rebuilt across two iterations (v1 & v2).",
+        "A showcase of creative development: complex animations, interactive UI and a distinctive digital identity for a software & digital solutions studio.",
+        "Motion-heavy landing experience with polished transitions and custom interactive components.",
+        "Tech: Next.js, React, TypeScript, Tailwind CSS"
       ]
     },
     {
@@ -68,18 +77,23 @@
       "image": "assets/sportplus.png",
       "descriptions": [
         "RFID access control solution for a fitness group, developed independently in three parts:",
-        "- Fitness group e-commerce website",
-        "- Custom membership & access control management system (web back-office)",
-        "- Access control system (desktop software for terminals)",
-        "Tech: Symfony, PHP, JavaScript, Python, MySQL, SASS, Illustrator"
+        "Fitness group e-commerce website.",
+        "Custom web back-office for membership management, subscriptions and access control administration.",
+        "Desktop access control software for on-site terminals, with RFID reader integration.",
+        "UI built with Qt Designer for the desktop client; custom workflows for staff and club operators.",
+        "Tech: Symfony, PHP, Python, JavaScript, MySQL, SASS, Qt Designer, Adobe Illustrator"
       ]
     },
     {
       "id": "p13",
       "name": "Mapadora",
       "descriptions": [
-        "Travel assistant project split into three developments: Web App, Mobile App & API.",
-        "Tech: Node.js, React, React Native, TypeScript, Material UI, GitLab CI/CD, Linux, PostgreSQL, Sequelize, Swagger, Figma, Nginx"
+        "Travel assistant project split into three developments: web app, mobile app and REST API.",
+        "Express.js API with PostgreSQL and Sequelize; React web client and React Native mobile app sharing business logic.",
+        "API documented and tested with Swagger, Postman collections and Newman for automated runs.",
+        "GitLab CI/CD, Nginx reverse proxy, PM2 process management and Linux server deployment.",
+        "UI design in Figma; Material UI on the web front-end.",
+        "Tech: Node.js, Express.js, React, React Native, TypeScript, JavaScript, Material UI, PostgreSQL, Sequelize, Swagger, Postman, Newman, PM2, GitLab CI/CD, Figma, Nginx, Linux"
       ]
     },
     {
@@ -125,7 +139,7 @@
     },
     {
       "id": "p6",
-      "name": "Drupal & Front (SASS)",
+      "name": "Industrial Web Catalog",
       "descriptions": [
         "Confidential project: custom Drupal build with a fully hand-crafted SASS front-end.",
         "Tech: Drupal, PHP, SASS, JavaScript"
@@ -133,7 +147,7 @@
     },
     {
       "id": "p11",
-      "name": "Desktop Software (C#)",
+      "name": "Winform Desktop Software",
       "descriptions": [
         "Confidential desktop software built with C# WinForms.",
         "Tech: C#, WinForms, .NET, SQL Server"
@@ -154,12 +168,12 @@
       "id": "e1",
       "name": "Arpejio",
       "descriptions": [
-        "Freelance Full Stack Developer — 2021–2026 · Strasbourg & Chambéry, FR",
-        "Technical leadership and full stack delivery of 10+ web & mobile solutions (MVPs and production) for startups and SMEs.",
-        "Complex React Native MVPs: Bluetooth management, WebRTC communication, payments integration, Redis/Redux optimization.",
-        "Production Next.js sites (AI/Supabase app, Payload CMS) and WordPress, including AI integration.",
-        "Architected and implemented a full stack monorepo in production, owning infrastructure and deployment end-to-end.",
-        "Tech: Nest.js, React, React Native, Next.js, Strapi, Payload CMS, AWS, Firebase, Redis, Redux, Prisma"
+        "Freelance · Full Stack Web & Mobile Software Engineer — Mar 2021–present · Chambéry, FR",
+        "I support clients from strategy through delivery, with an agile approach and hands-on follow-up at every stage — fast execution, high delivery quality and close collaboration with teams and partners.",
+        "Technical leadership and full stack delivery of 10+ web & mobile solutions (MVPs and production) for startups, SMEs and web agencies.",
+        "Complex React Native MVPs: Bluetooth, WebRTC, Stripe payments, Redis/Redux optimization. Production Next.js apps (AI/Supabase, Payload CMS), WordPress and AI integrations.",
+        "Architected and shipped a full stack monorepo in production, owning infrastructure and deployment end-to-end.",
+        "Tech: Nest.js, React, React Native, Next.js, Strapi, Payload CMS, AWS, Firebase, Redis, Redux, Prisma, PostgreSQL, PostGIS"
       ]
     },
     {
@@ -167,52 +181,72 @@
       "name": "CEGI Santé",
       "descriptions": [
         "Full Stack Software Engineer — 2023–2024 · Annecy, FR",
-        "Design, development, maintenance and integration of new full stack features (.NET + TypeScript) within an Azure environment.",
-        "Tech: C#, ASP.NET, .NET Framework, .NET Core, Azure, SQL Server, jQuery"
+        "Development and maintenance of web business applications in the healthcare sector (MedTech).",
+        "Designed, built and integrated new full stack features — .NET backend and TypeScript frontend — within a Microsoft Azure environment.",
+        "Performance optimization and SQL Server database management.",
+        "Tech: C#, ASP.NET, .NET Framework, .NET Core, Azure, SQL Server, TypeScript, jQuery"
       ]
     },
     {
       "id": "e3",
       "name": "Diatem",
       "descriptions": [
-        "Full Stack Software Developer — 2021–2022 · Strasbourg, FR",
-        "Project design and development, prototyping, dynamic interfaces, database creation and custom CMS adaptation with Symfony.",
-        "Built an RFID access control solution with a Python API.",
-        "Tech: PHP, Symfony, Python, SASS, JavaScript, MySQL"
-      ]
-    },
-    {
-      "id": "e8",
-      "name": "DJS Research",
-      "descriptions": [
-        "Market Research Consultant (B2B) — Manchester, UK",
-        "B2B market research consulting."
+        "Full Stack Software Developer — Sep 2021–Sep 2022 · Strasbourg, FR",
+        "Bespoke desktop, web and mobile web development, working in collaboration with the engineering team.",
+        "Project design and prototyping, dynamic interfaces, database creation and adaptation of custom content management solutions with Symfony.",
+        "Tech: PHP, Symfony, Python, JavaScript, SASS, MySQL"
       ]
     },
     {
       "id": "e6",
       "name": "Coutts & Co",
       "descriptions": [
-        "Private Banking Officer & Project Coordinator — 2019 · Bristol, UK",
-        "Private banking operations and project coordination at Coutts & Co / Adam & Co."
-      ]
-    },
-    {
-      "id": "e7",
-      "name": "Zephus Ltd",
-      "descriptions": [
-        "Data Controller — 2014–2018 · Manchester, UK",
-        "Data control and management for a business information provider."
+        "Private Banking Officer & Project Coordinator — Feb–Oct 2019 · Bristol, UK",
+        "Delivered high-touch service to high-net-worth clients, coordinating across private banking, credit, AML and operations teams.",
+        "Improved Avaloq banking software workflows in close collaboration with development teams in Switzerland.",
+        "Raised and tracked technical incident reports across FCM/ICS, online banking and payment environments; investigated client disputes and fraud cases."
       ]
     },
     {
       "id": "e5",
       "name": "Happy-Cash",
       "descriptions": [
-        "IT Technician — Lyon, FR",
+        "Sales Advisor, Buyer & IT Technician — Apr 2017–Dec 2018 · Lyon, FR",
+        "Sales, purchasing and negotiation across a wide range of second-hand products; customer advice and in-store operations including opening and closing procedures.",
+        "After-sales IT support: diagnostics and first-level repairs on computers, consoles, peripherals and consumer electronics.",
+        "Cash register operations following internal procedures and store tracking tools.",
         "Developed inventory management software for a wine cellar, integrated with a printer and barcode reader.",
         "Built custom web applications using Drupal and WordPress.",
         "Tech: C#, WinForms, .NET, Drupal, PHP, Symfony, SASS, WordPress"
+      ]
+    },
+    {
+      "id": "e8",
+      "name": "DJS Research",
+      "descriptions": [
+        "Market Research Consultant (B2B) — Jun 2016–Apr 2017 · Manchester, UK",
+        "Planned and organised B2B market research studies and professional client interviews.",
+        "Supervised a team on call campaigns: quality standards, professionalism and adherence to project specifications.",
+        "Maintained high call quality and reporting standards across enterprise client projects."
+      ]
+    },
+    {
+      "id": "e7",
+      "name": "Bureau van Dijk",
+      "descriptions": [
+        "Data Controller — Dec 2014–May 2016 · Manchester, UK",
+        "Interpreted financial data to support business transactions and qualification processes.",
+        "Verified the reliability of information held in professional databases to ensure consistent, high-quality data and analytics.",
+        "Delivered custom projects for the ongoing maintenance and improvement of a large-scale business information database."
+      ]
+    },
+    {
+      "id": "e9",
+      "name": "IT Technician",
+      "descriptions": [
+        "Self-employed · IT Technician — Feb 2013–Sep 2014 · Lyon area, FR",
+        "Built a local reputation as an independent computer repair specialist, working from home and on client sites.",
+        "On-site diagnostics, maintenance and hardware/software troubleshooting for private clients."
       ]
     }
   ]

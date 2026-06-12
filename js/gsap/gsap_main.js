@@ -53,8 +53,78 @@ const messageBoxAnim = gsap.from('.project-message', {
 // MessageBox Text Animation
 // Fresh timeline per call — avoids stacking tweens across project switches
 let letterAnimTl = null;
+const skipTextAnimBtn = document.getElementById('skipTextAnimBtn');
 
-const textWrappers = document.querySelectorAll('.text-wrapper');
+let autoScrollFollow = false;
+let suppressScrollEvent = false;
+const scrollInterruptBound = new WeakSet();
+
+function findScrollParent(el) {
+  let node = el?.parentElement;
+  while (node) {
+    const { overflowY } = getComputedStyle(node);
+    if (overflowY === 'auto' || overflowY === 'scroll') return node;
+    node = node.parentElement;
+  }
+  return null;
+}
+
+function bindScrollInterrupt(container) {
+  if (!container || scrollInterruptBound.has(container)) return;
+  scrollInterruptBound.add(container);
+
+  const stopFollow = () => {
+    if (autoScrollFollow) autoScrollFollow = false;
+  };
+
+  container.addEventListener('scroll', () => {
+    if (suppressScrollEvent || !autoScrollFollow) return;
+    autoScrollFollow = false;
+  }, { passive: true });
+
+  container.addEventListener('wheel', stopFollow, { passive: true });
+  container.addEventListener('touchstart', stopFollow, { passive: true });
+}
+
+function followLetterIntoView(letterEl, container) {
+  if (!autoScrollFollow || !letterEl || !container) return;
+
+  const margin = 28;
+  const elRect = letterEl.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+
+  if (elRect.bottom <= containerRect.bottom - margin) return;
+
+  suppressScrollEvent = true;
+  container.scrollTop += elRect.bottom - containerRect.bottom + margin;
+  requestAnimationFrame(() => {
+    suppressScrollEvent = false;
+  });
+}
+
+function setSkipTextBtnVisible(visible) {
+  if (skipTextAnimBtn) skipTextAnimBtn.hidden = !visible;
+}
+
+function revealAllLetters() {
+  if (!messageContent) return;
+  messageContent.querySelectorAll('.text-wrapper').forEach(wrapper => {
+    wrapper.textContent = wrapper.textContent;
+  });
+}
+
+export function skipTextAnimation() {
+  if (!letterAnimTl) return;
+  letterAnimTl.kill();
+  letterAnimTl = null;
+  autoScrollFollow = false;
+  revealAllLetters();
+  setSkipTextBtnVisible(false);
+}
+
+if (skipTextAnimBtn) {
+  skipTextAnimBtn.addEventListener('click', skipTextAnimation);
+}
 
 export const textAnimation = (wrappers, { stagger = 0.03, fadeDuration = 0.1, colorDuration = 1.2, delay = 0.3 } = {}) => {
   if (letterAnimTl) {
@@ -62,17 +132,39 @@ export const textAnimation = (wrappers, { stagger = 0.03, fadeDuration = 0.1, co
     letterAnimTl = null;
   }
 
+  const scrollContainer = findScrollParent(wrappers[0]) || messageContent;
+  if (scrollContainer) {
+    scrollContainer.scrollTop = 0;
+    bindScrollInterrupt(scrollContainer);
+  }
+  autoScrollFollow = true;
+
   wrappers.forEach(e => {
     e.innerHTML = e.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
   });
 
-  letterAnimTl = gsap.timeline();
+  setSkipTextBtnVisible(true);
+
+  const staggerConfig = {
+    each: stagger,
+    onStart() {
+      followLetterIntoView(this.targets()[0], scrollContainer);
+    },
+  };
+
+  letterAnimTl = gsap.timeline({
+    onComplete: () => {
+      letterAnimTl = null;
+      autoScrollFollow = false;
+      setSkipTextBtnVisible(false);
+    },
+  });
   letterAnimTl
     .from(wrappers.flatMap(w => [...w.querySelectorAll('.letter')]), {
       duration: fadeDuration,
       opacity: 0,
       ease: 'power1.out',
-      stagger,
+      stagger: staggerConfig,
     }, delay)
     .from(wrappers.flatMap(w => [...w.querySelectorAll('.letter')]), {
       duration: colorDuration,
@@ -86,15 +178,29 @@ export const textAnimation = (wrappers, { stagger = 0.03, fadeDuration = 0.1, co
 export const textAnimationFast = (wrappers) =>
   textAnimation(wrappers, { stagger: 0.012, fadeDuration: 0.05, colorDuration: 0.45, delay: 0.12 });
 
-setTimeout(() => {
-  textAnimation(textWrappers);
-}, 2000);
+let welcomeIntroCallback = null;
+const pageLoadT = performance.now();
+
+export function setWelcomeIntroCallback(fn) {
+  welcomeIntroCallback = fn;
+  const remaining = Math.max(0, 2500 - (performance.now() - pageLoadT)) / 1000;
+  gsap.delayedCall(remaining || 0.01, () => welcomeIntroCallback?.());
+}
 
 
 // Title Cover Revert
 export const revertCover = () => {
+  if (!projectViewTitle?.querySelector('.cover-title')) {
+    projectViewTitle?.querySelectorAll('h1').forEach(e => e.remove());
+    return Promise.resolve();
+  }
+
   return coverTitleAnim.reverse(0.2).then(() => {
     projectViewTitle.querySelectorAll('h1').forEach(e => e.remove());
+    // Orphan trailing covers (outside h1) would block the next title at full width
+    [...projectViewTitle.children]
+      .filter(el => el.classList.contains('cover-title'))
+      .forEach(el => el.remove());
   });
 };
 
@@ -102,22 +208,28 @@ export const revertCover = () => {
 // MessageBox Revert & Replace
 // Fresh timeline per call — avoids stacking stutter tweens
 export const revertMessageBox = () => {
-  revertCover();
-  return messageBoxAnim.reverse().then(() => {
-    messageContent.innerHTML = '';
-    const stutterTl = gsap.timeline();
-    return stutterTl
-      .to('.border-message-wrapper', {
-        duration: 0.1,
-        opacity: 0.2,
-        repeat: 3,
-        stagger: 0.1,
-      })
-      .to('.border-message-wrapper', { opacity: 1 })
-      .then(() => {
-        messageBoxAnim.play(0.1).then(() => coverTitleAnim.play());
-      });
-  });
+  if (letterAnimTl) {
+    letterAnimTl.kill();
+    letterAnimTl = null;
+  }
+  autoScrollFollow = false;
+  setSkipTextBtnVisible(false);
+
+  return revertCover()
+    .then(() => messageBoxAnim.reverse())
+    .then(() => {
+      messageContent.innerHTML = '';
+      const stutterTl = gsap.timeline();
+      return stutterTl
+        .to('.border-message-wrapper', {
+          duration: 0.1,
+          opacity: 0.2,
+          repeat: 3,
+          stagger: 0.1,
+        })
+        .to('.border-message-wrapper', { opacity: 1 })
+        .then(() => messageBoxAnim.play(0.1));
+    });
 };
 
 
