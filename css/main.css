@@ -696,6 +696,11 @@ header {
     position: relative;
     justify-content: flex-start;
     height: 100%;
+    overflow: hidden;
+}
+
+.projects-wrapper > .cover {
+    z-index: 10;
 }
 
 .projects-top-zone {
@@ -706,6 +711,7 @@ header {
 }
 
 .projects {
+    position: relative;
     padding-left: 1.25rem;
     padding-right: 0.35rem;
     flex: 1 1 auto;
@@ -1050,11 +1056,10 @@ footer .william-ty {
     position: absolute;
     right: 3.65rem;
     bottom: 0.65rem;
-    z-index: 12;
+    z-index: 1;
     display: inline-flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 0.38rem;
     margin: 0;
     padding: 0;
     border: none;
@@ -1062,6 +1067,15 @@ footer .william-ty {
     cursor: default;
     pointer-events: none;
     font-family: 'Kanit', sans-serif;
+    overflow: visible;
+}
+
+.start-racer-block {
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.38rem;
 }
 
 .start-racer-label {
@@ -1828,42 +1842,9 @@ body.simple-mode header {
         padding-right: 0.15rem;
     }
 
-    /* Skip : discret, au-dessus de l’onglet, sans fond ni bordure */
+    /* Skip masqué sur mobile pour le moment */
     .skip-text-anim-btn {
-        top: -1.55rem;
-        right: 5;
-        bottom: auto;
-        left: auto;
-        width: auto;
-        height: auto;
-        min-height: 0;
-        padding: 0.1rem 0;
-        border: none;
-        background: transparent;
-        color: rgba(255, 255, 255, 0.36);
-        z-index: 4;
-        max-width: calc(100% - 10.5rem);
-    }
-
-    .skip-text-anim-btn:hover {
-        color: rgba(255, 255, 255, 0.68);
-        background: transparent;
-    }
-
-    .skip-text-anim-label {
-        transform: none;
-        font-size: 0.62rem;
-        letter-spacing: 0.04em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 10rem;
-        text-decoration: underline;
-        text-decoration-color: rgba(255, 255, 255, 0.22);
-        text-underline-offset: 0.2em;
-    }
-
-    .skip-text-anim-btn:hover .skip-text-anim-label {
-        text-decoration-color: rgba(255, 255, 255, 0.45);
+        display: none !important;
     }
 
     .text-wrapper {
